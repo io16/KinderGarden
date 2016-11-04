@@ -1,4 +1,4 @@
-package me.codaline.controller;
+package Team_Z.controller;
 
 import org.springframework.stereotype.Controller;
 

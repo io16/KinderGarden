@@ -1,7 +1,7 @@
-package me.codaline.service;
+package Team_Z.service;
 
-import me.codaline.dao.UserDao;
-import me.codaline.model.User;
+import Team_Z.dao.UserDao;
+import Team_Z.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

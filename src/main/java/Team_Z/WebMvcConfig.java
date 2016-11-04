@@ -1,4 +1,4 @@
-package me.codaline;
+package Team_Z;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("me.codaline")
+@ComponentScan("Team_Z")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean

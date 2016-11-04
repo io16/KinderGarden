@@ -1,7 +1,7 @@
-package me.codaline.controller;
+package Team_Z.controller;
 
-import me.codaline.model.User;
-import me.codaline.service.UserService;
+import Team_Z.model.User;
+import Team_Z.service.UserService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;

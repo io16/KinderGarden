@@ -1,4 +1,4 @@
-package me.codaline.model;
+package Team_Z.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
