@@ -1,6 +1,6 @@
-package Team_Z.dao;
+package me.codaline.dao;
 
-import Team_Z.model.User;
+import me.codaline.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;

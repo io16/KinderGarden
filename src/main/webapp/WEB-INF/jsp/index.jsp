@@ -107,7 +107,7 @@
 						<h2>Галерея</h2>
 						<p>Тут ви можете побачити життя нашого садочка</p>
 						<img src="../../resources/images/placeholders/yellow-mid.png" alt="" class="img-margin" /><br />
-						<a href="gallery.html" class="button green"><span>&#xf138;</span>Подивитися галерею</a>
+						<a href="gallery.html" class="button green"><span>&#xf138;</span>Галерея</a>
 					</div>
 				</div>
 

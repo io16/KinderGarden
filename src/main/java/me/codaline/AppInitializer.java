@@ -1,4 +1,4 @@
-package Team_Z;
+package me.codaline;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

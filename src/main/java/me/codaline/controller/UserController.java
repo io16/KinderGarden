@@ -1,7 +1,8 @@
-package Team_Z.controller;
+package me.codaline.controller;
 
-import Team_Z.model.User;
-import Team_Z.service.UserService;
+import me.codaline.model.User;
+import me.codaline.service.FeedBackService;
+import me.codaline.service.UserService;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class UserController {
 
     @Autowired
     UserService service;
+    @Autowired
+    FeedBackService feedBackService;
 
     @RequestMapping(value = "/createUser", method = RequestMethod.GET)
     String createUser() {
@@ -69,6 +72,17 @@ public class UserController {
         modelMap.addAttribute("user", user);
         return "user";
     }
+
+    @RequestMapping(value = "/addFeedBack", method = RequestMethod.POST)
+    String addFeedBack(ModelMap modelMap, String text, String email, String name) {
+
+        feedBackService.createFeedBack(name, email, text);
+
+
+        modelMap.addAttribute("feedBacks", feedBackService.getFeedBacks());
+        return "contact";
+    }
+
 
 
 }

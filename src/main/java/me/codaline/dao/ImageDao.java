@@ -1,8 +1,10 @@
-package Team_Z.dao;
+package me.codaline.dao;
 
-import Team_Z.model.Image;
+import me.codaline.model.Image;
+import me.codaline.model.Image;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -30,11 +32,12 @@ public class ImageDao {
     }
 
     public List<Image> getImages() {
-        return sessionFactory.getCurrentSession().createCriteria(Image.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(Image.class).addOrder(Order.desc("id")).list();
     }
 
     public void deleteImage(Image image) {
         sessionFactory.getCurrentSession().delete(image);
     }
+
 
 }

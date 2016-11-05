@@ -1,4 +1,4 @@
-package Team_Z;
+package me.codaline;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("Team_Z")
+@ComponentScan("me.codaline")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -41,5 +41,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/images/**").addResourceLocations("/resources/images/");
     }
 }

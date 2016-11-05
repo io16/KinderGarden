@@ -1,4 +1,4 @@
-package Team_Z.model;
+package me.codaline.model;
 
 import javax.persistence.*;
 

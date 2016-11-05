@@ -1,7 +1,8 @@
-package Team_Z.service;
+package me.codaline.service;
 
-import Team_Z.dao.UserDao;
-import Team_Z.model.User;
+import me.codaline.dao.UserDao;
+import me.codaline.model.User;
+import me.codaline.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,17 +15,21 @@ public class UserService {
     UserDao userDao;
 
     public User createUser(String firstName, String lastName, String email) {
+
         User user = new User();
+
         user.setLastName(lastName);
         user.setFirstName(firstName);
         user.setEmail(email);
         user.setPass(generatePass());
+
         userDao.save(user);
+
         return user;
     }
 
     public List<User> getUsers() {
-            return userDao.getUsers();
+        return userDao.getUsers();
     }
 
     public User getUser(String email) {

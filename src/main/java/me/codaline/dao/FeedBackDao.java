@@ -1,7 +1,8 @@
-package Team_Z.dao;
+package me.codaline.dao;
 
-import Team_Z.model.FeedBack;
+import me.codaline.model.FeedBack;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,11 @@ public class FeedBackDao {
     public void deleteFeedBack(FeedBack feedBack) {
         sessionFactory.getCurrentSession().delete(feedBack);
 
+    }
+
+    public void deleteAllFeedBacks() {
+        String hql = String.format("delete from FeedBack");
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+         query.executeUpdate();
     }
 }

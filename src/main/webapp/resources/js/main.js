@@ -13,20 +13,37 @@
 //    event.preventDefault();
 //});
 function Redirect() {
-    window.location.href="http://localhost:8080/404";
+    window.location.href = "http://localhost:8080/404";
 }
-function Ban(name,idi) {
+function DeleteFeedBack(id) {
     var token = $("#token").val();
-    document.getElementById(idi).innerHTML='<span style="color: crimson">Baned</span>;';
-    $.post("changeAccesss?_csrf=" + token, {
-            username: name,
-            status: false
+
+    $.post("admin/DeleteFeedBack?_csrf=" + token, {
+            idFeedBack: id
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
+function DeleteAllFeedBacks() {
+    var token = $("#token").val();
+
+    $.post("admin/DeleteAllFeedBacks?_csrf=" + token, function () {
+
+            window.location.reload();
+
         }
     )
 }
-function Unban(name,idi) {
+
+function Unban(name, idi) {
     var token = $("#token").val();
-    document.getElementById(idi).innerHTML='<span style="color: forestgreen">Available</span>;';
+    document.getElementById(idi).innerHTML = '<span style="color: forestgreen">Available</span>;';
     $.post("changeAccesss?_csrf=" + token, {
             username: name,
             status: true

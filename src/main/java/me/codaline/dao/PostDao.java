@@ -1,6 +1,6 @@
-package Team_Z.dao;
+package me.codaline.dao;
 
-import Team_Z.model.Post;
+import me.codaline.model.Post;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 

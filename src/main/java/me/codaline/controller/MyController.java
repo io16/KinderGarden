@@ -1,4 +1,4 @@
-package Team_Z.controller;
+package me.codaline.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,10 +43,7 @@ public class MyController {
     String adminPage() {
         return "contact";
     }
-    @RequestMapping("/admin")
-    String adminPagee() {
-        return "adminPage";
-    }
+
 
 }
 

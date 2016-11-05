@@ -1,7 +1,7 @@
-package Team_Z.service;
+package me.codaline.service;
 
-import Team_Z.dao.PostDao;
-import Team_Z.model.Post;
+import me.codaline.dao.PostDao;
+import me.codaline.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +16,7 @@ public class PostService {
     PostDao postDao;
 
     public Post createPost(String title, String context, String date, int idImage, String userName) {
+
         Post post = new Post();
 
         post.setDate(date);

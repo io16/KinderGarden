@@ -1,14 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: igor
+  Date: 05.11.16
+  Time: 17:20
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-
 <!DOCTYPE HTML>
-<!--
-Striped by HTML5 UP
-html5up.net | @n33co
-Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 <head>
     <title>Blog</title>
@@ -39,102 +42,33 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 <!-- Wrapper -->
 <div id="wrapper">
-    <c:set var="ac" scope="session" value="${access}"/>
+
 
     <!-- Content -->
     <div id="content">
         <div class="inner">
             <script language="javascript" type="text/javascript"
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
-            <script type="text/javascript">
 
-                $(document).ready(function () {
-                    $('#image_container img').click(function () {
-                        //remove border on any images that might be selected
-                        $('#image_container img').removeClass("img_border")
-                        $('#NEWimage_container img').removeClass("img_border")
-                        // set the img-source as value of image_from_list
-                        $('#image_from_list').val($(this).attr("src"));
-                        $('#data_value').val($(this).attr("id"));
-                        // $('#data_value').val( $(this).data("options").color );
+            FeedBacks:<br>
+            You have ${feedBacksSize} feedBacks <br>
 
-                        //add border to a clicked image
-                        $(this).addClass("img_border")
-                    });
+            <c:if test="${feedBacksSize !=0}">
 
-                })
-                function  SelectImg() {
-                    $('#NEWimage_container img').click(function () {
+                <button class="button" onclick="DeleteAllFeedBacks()">Delete ALL</button>
+                <br>
+            </c:if>
+            <c:forEach items="${feedBacks}" var="fb">
+                Name: ${fb.name}<br>
+                Text: ${fb.text}<br>
+                Email: ${fb.email}<br>
+                Date: ${fb.date}<br>
+                <button class="button" onclick="DeleteFeedBack('${fb.id}')">Delete</button>
+                <br>
+            </c:forEach>
 
-                        //remove border on any images that might be selected
-                        $('#NEWimage_container img').removeClass("img_border")
-                        $('#image_container img').removeClass("img_border")
-                        // set the img-source as value of image_from_list
-                        $('#image_from_list').val($(this).attr("src"));
-                        $('#data_value').val($(this).attr("id"));
-                        // $('#data_value').val( $(this).data("options").color );
-
-                        //add border to a clicked image
-                        $(this).addClass("img_border")
-                });
-
-                }
-            </script>
-            <style>
-                .img_border {
-                    border: 4px solid blue;
-                }
-            </style>
-
-            <form action="updatePost?${_csrf.parameterName}=${_csrf.token}" method="post">
-                <input type="text" name="title" placeholder="Title" required value="${post.title}"><br/>
-                <%--<input type="text" name="context" required>--%>
-                <textarea class="text-style1" rows="10" cols="70"
-                          STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
-                          required>${post.context}</textarea>
-                <input id="image_from_list" name="image" type="hidden" value=""/><br/>
-                <input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>
-                <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-                <input type="submit" name="add" value="Update" align="right">
-                <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-            </form>
-
-            <div id="image_container">
-
-                <c:forEach items="${images}" var="name">
-
-
-
-                    <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
-
-                </c:forEach>
-                <c:forEach items="${idImages}" var="name">
-                    ${name}<br>
-                </c:forEach>
-
-            </div>
-
-            <div id="NEWimage_container"></div>
-            <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <form:form id="forma"  modelAttribute="uploadForm" target="frame_ajax" action="http://localhost:8080/user//savefiles?${_csrf.parameterName}=${_csrf.token}"
-                       enctype="multipart/form-data">
-
-                <p>Select files to upload. .</p>
-
-
-                <input id="File1" name="files[0]" type="file"/>
-                <br/>
-                <%--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-
-                <%--<input type="submit" name="Up" value="Upload">--%>
-
-                <%--<input type="hidden" name="${_csrf.parameterName}"--%>
-                       <%--value="${_csrf.token}" />--%>
-                <button class="button" name="Up" value="Upload" onclick="Upload()"></button>
-            </form:form>
-            <iframe name="frame_ajax" src="http://localhost:8080/user/savefiles?${_csrf.parameterName}=${_csrf.token}" width="0" height="0" style="display:none">
-                            </iframe>
         </div>
+
     </div>
 
 
@@ -143,22 +77,18 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#">Blog<c:if test="${ac == true}">${user.firstName }</c:if> </a></h1>
+        <h1 id="logo"><a href="#">Admin </a></h1>
 
         <!-- Nav -->
         <nav id="nav">
             <ul>
                 <%--<li class="current"><a href="/">Post</a></li>--%>
 
-                <sec:authorize access="hasRole('ROLE_ANONYMOUS')" >
 
-
-
-                </sec:authorize>
                 <%--<li><a href="http://localhost:8080/gallery">Gallery</a></li>--%>
 
 
-                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
 
 
                     <li><a href=""> News</a></li>
@@ -168,7 +98,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>
                 </sec:authorize>
-                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li><a href="http://localhost:8080/admin/userList">Ban List</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/stat">Stats</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/actions">Actions</a></li>--%>

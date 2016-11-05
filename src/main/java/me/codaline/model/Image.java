@@ -1,4 +1,4 @@
-package Team_Z.model;
+package me.codaline.model;
 
 import javax.persistence.*;
 
@@ -9,10 +9,19 @@ import javax.persistence.*;
 public class Image {
     @Id
     @GeneratedValue
-   private int id;
+    private int id;
+    private String formatFile;
     @Lob
-    @Column(name="Post_IMAGE", nullable=false, columnDefinition="mediumblob")
+    @Column(name = "Post_IMAGE", nullable = false, columnDefinition = "mediumblob")
     private byte[] image;
+
+    public String getFormatFile() {
+        return formatFile;
+    }
+
+    public void setFormatFile(String formatFile) {
+        this.formatFile = formatFile;
+    }
 
     public int getId() {
         return id;

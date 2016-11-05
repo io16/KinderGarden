@@ -86,12 +86,12 @@
 					<div class="separator"></div>
 
 					<div id="note"></div>
-					<form class="w-clearfix" id="ajax-contact-form" action="http://ithemewordpress.com/">
+					<form class="w-clearfix"  action="/addFeedBack" method="post">
 						<div class="feedback">
 							<h1> Зворотній звʼязок </h1>
 						</div>
 						<div class="col-12">
-							<textarea name="message" id="message" placeholder="Напишіть ваше повідомлення"></textarea>
+							<textarea name="text" id="text" placeholder="Напишіть ваше повідомлення"></textarea>
 						</div>
 						<div class="col-6">
 							<input type="text" name="name" placeholder="Ваше Імʼя" />
