@@ -47,8 +47,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
 
-
-
             <div id="NEWimage_container"></div>
             <%--<input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
             <%--<form action="upload" method="post" enctype="multipart/form-data">--%>
@@ -59,25 +57,25 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         </div>
         <div>
-            <c:forEach items="${posts}" var="name" varStatus="status">
-
-                Post:${status.index+1}<br>
-                ${name.title}<br>
-                ${name.context}<br>
-
-                <c:forEach items="${images}" var="img" varStatus="status">
-                    <c:if test="${idImages[status.index] == name.idImage}">
-                        <img style="margin: 10px" width="100px" height="100px"
-                             src="<c:url value='${img}'/> "/><br>
-
-                    </c:if>
 
 
-                </c:forEach>
-                <button class="button" onclick="DeletePost('${name.id}')">Delete</button>
-                <br>
+            <c:forEach items="${images}" var="name" varStatus="status">
+
+
+                <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
+                <button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>
+
             </c:forEach>
 
+            <br>
+            <br>
+            <br>
+            <form action="adminUpload" method="post" enctype="multipart/form-data">
+                Upload Photos
+                <input name="file" type="file" multiple="multiple">
+                <input type="submit" value="Upload">
+
+            </form>
 
         </div>
     </div>
@@ -103,8 +101,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
                 <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
-
-
 
 
 

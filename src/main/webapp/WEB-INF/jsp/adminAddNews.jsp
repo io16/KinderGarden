@@ -2,7 +2,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-
 <!DOCTYPE HTML>
 <!--
 Striped by HTML5 UP
@@ -54,7 +53,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                         $('#image_container img').removeClass("img_border")
                         $('#NEWimage_container img').removeClass("img_border")
                         // set the img-source as value of image_from_list
-                        $('#image_from_list').val($(this).attr("src"));
+                        $('#image_from_list').val($(this).attr("id"));
                         $('#data_value').val($(this).attr("id"));
                         // $('#data_value').val( $(this).data("options").color );
 
@@ -63,7 +62,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     });
 
                 })
-                function  SelectImg() {
+                function SelectImg() {
                     $('#NEWimage_container img').click(function () {
 
                         //remove border on any images that might be selected
@@ -76,7 +75,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                         //add border to a clicked image
                         $(this).addClass("img_border")
-                });
+                    });
 
                 }
             </script>
@@ -86,55 +85,44 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 }
             </style>
 
-            <form action="updatePost?${_csrf.parameterName}=${_csrf.token}" method="post">
+            <form action="adminAddPost?${_csrf.parameterName}=${_csrf.token}" method="post">
                 <input type="text" name="title" placeholder="Title" required value="${post.title}"><br/>
                 <%--<input type="text" name="context" required>--%>
                 <textarea class="text-style1" rows="10" cols="70"
                           STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
                           required>${post.context}</textarea>
-                <input id="image_from_list" name="image" type="hidden" value=""/><br/>
-                <input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>
+                <input id="image_from_list" name="idImage" type="hidden" value=""/><br/>
+
+                <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
                 <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-                <input type="submit" name="add" value="Update" align="right">
+                <input type="submit" value="Add" align="right">
                 <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
             </form>
 
             <div id="image_container">
 
-                <c:forEach items="${images}" var="name">
+                <c:forEach items="${images}" var="name" varStatus="status">
 
 
+                    <img id="${idImages[status.index]}" style="margin: 10px" width="100px" height="100px"
+                         src="<c:url value='${name}'/> "/>
 
-                    <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
 
                 </c:forEach>
-                <c:forEach items="${idImages}" var="name">
-                    ${name}<br>
-                </c:forEach>
+
 
             </div>
 
             <div id="NEWimage_container"></div>
-            <input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}" />
-            <form:form id="forma"  modelAttribute="uploadForm" target="frame_ajax" action="http://localhost:8080/user//savefiles?${_csrf.parameterName}=${_csrf.token}"
-                       enctype="multipart/form-data">
+            <%--<input type="hidden" id="token" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+            <%--<form action="upload" method="post" enctype="multipart/form-data">--%>
+            <%--<input name="file" type="file" multiple="multiple">--%>
+            <%--<input type="submit">--%>
 
-                <p>Select files to upload. .</p>
+            <%--</form>--%>
 
-
-                <input id="File1" name="files[0]" type="file"/>
-                <br/>
-                <%--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-
-                <%--<input type="submit" name="Up" value="Upload">--%>
-
-                <%--<input type="hidden" name="${_csrf.parameterName}"--%>
-                       <%--value="${_csrf.token}" />--%>
-                <button class="button" name="Up" value="Upload" onclick="Upload()"></button>
-            </form:form>
-            <iframe name="frame_ajax" src="http://localhost:8080/user/savefiles?${_csrf.parameterName}=${_csrf.token}" width="0" height="0" style="display:none">
-                            </iframe>
         </div>
+
     </div>
 
 
@@ -150,27 +138,26 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <ul>
                 <%--<li class="current"><a href="/">Post</a></li>--%>
 
-                <sec:authorize access="hasRole('ROLE_ANONYMOUS')" >
-
+                <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 
 
                 </sec:authorize>
                 <%--<li><a href="http://localhost:8080/gallery">Gallery</a></li>--%>
 
 
-                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
 
 
                     <li><a href="adminGetPosts"> News</a></li>
-
                     <li><a href="adminAddPost"> Add Post</a></li>
+
                     <li><a href="adminPhoto"> Photos</a></li>
                     <li><a href="adminGallery"> Albums</a></li>
                     <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>
                 </sec:authorize>
-                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li><a href="http://localhost:8080/admin/userList">Ban List</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/stat">Stats</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/actions">Actions</a></li>--%>
@@ -198,100 +185,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             </div>
         </section>
 
-        <!-- Recent Posts -->
-        <section class="box recent-posts">
-            <header>
-                <h2>Recent Posts</h2>
-            </header>
-            <ul>
-                <li><a href="#">Lorem ipsum dolor</a></li>
-                <li><a href="#">Feugiat nisl aliquam</a></li>
-                <li><a href="#">Sed dolore magna</a></li>
-                <li><a href="#">Malesuada commodo</a></li>
-                <li><a href="#">Ipsum metus nullam</a></li>
-            </ul>
-        </section>
-
-        <!-- Recent Comments -->
-        <section class="box recent-comments">
-            <header>
-                <h2>Recent Comments</h2>
-            </header>
-            <ul>
-                <li>case on <a href="#">Lorem ipsum dolor</a></li>
-                <li>molly on <a href="#">Sed dolore magna</a></li>
-                <li>case on <a href="#">Sed dolore magna</a></li>
-            </ul>
-        </section>
-
-        <!-- Calendar -->
-        <section class="box calendar">
-            <div class="inner">
-                <table>
-                    <caption>July 2014</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col" title="Monday">M</th>
-                        <th scope="col" title="Tuesday">T</th>
-                        <th scope="col" title="Wednesday">W</th>
-                        <th scope="col" title="Thursday">T</th>
-                        <th scope="col" title="Friday">F</th>
-                        <th scope="col" title="Saturday">S</th>
-                        <th scope="col" title="Sunday">S</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td colspan="4" class="pad"><span>&nbsp;</span></td>
-                        <td><span>1</span></td>
-                        <td><span>2</span></td>
-                        <td><span>3</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>4</span></td>
-                        <td><span>5</span></td>
-                        <td><a href="#">6</a></td>
-                        <td><span>7</span></td>
-                        <td><span>8</span></td>
-                        <td><span>9</span></td>
-                        <td><a href="#">10</a></td>
-                    </tr>
-                    <tr>
-                        <td><span>11</span></td>
-                        <td><span>12</span></td>
-                        <td><span>13</span></td>
-                        <td class="today"><a href="#">14</a></td>
-                        <td><span>15</span></td>
-                        <td><span>16</span></td>
-                        <td><span>17</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>18</span></td>
-                        <td><span>19</span></td>
-                        <td><span>20</span></td>
-                        <td><span>21</span></td>
-                        <td><span>22</span></td>
-                        <td><a href="#">23</a></td>
-                        <td><span>24</span></td>
-                    </tr>
-                    <tr>
-
-                        <td><a href="#">25</a></td>
-                        <td><span>26</span></td>
-                        <td><span>27</span></td>
-                        <td><span>28</span></td>
-                        <td class="pad" colspan="3"><span>&nbsp;</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Copyright -->
-        <ul id="copyright">
-            <li>&copy; Untitled.</li>
-            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-        </ul>
 
     </div>
 

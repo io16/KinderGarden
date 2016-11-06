@@ -5,6 +5,9 @@ import me.codaline.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,27 +18,32 @@ public class PostService {
     @Autowired
     PostDao postDao;
 
-    public Post createPost(String title, String context, String date, int idImage, String userName) {
+    public void createPost(String title, String context, int idImage) {
 
         Post post = new Post();
-
-        post.setDate(date);
-        post.setContext(context);
         post.setTitle(title);
-        post.setUserName(userName);
+        post.setContext(context);
         post.setIdImage(idImage);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = sdf.parse("2016-12-31");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        post.setDate(sdf.format(date));
 
         postDao.savePost(post);
 
-        return post;
 
     }
 
-    public List<Post> getPosts() {
-        return postDao.getUsers();
+    public List getPosts() {
+        return postDao.getPosts();
     }
 
-    public void deletePost(int idPost){
+    public void deletePost(int idPost) {
 
         Post post = postDao.getPostById(idPost);
         postDao.deletePost(post);

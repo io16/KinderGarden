@@ -1,24 +1,24 @@
 package me.codaline.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by igor on 04.11.16.
+ * Created by igor on 05.11.16.
  */
 @Entity
-public class Post {
+public class Gallery {
     @Id
     @GeneratedValue
     private int id;
     private String title;
     private String context;
     private String date;
-    private int idImage;
-
-
+    private String imagesId;
 
 
     public int getId() {
@@ -53,12 +53,13 @@ public class Post {
         this.date = date;
     }
 
-    public int getIdImage() {
-        return idImage;
+    public String getImagesId() {
+        return imagesId;
     }
 
-    public void setIdImage(int idImage) {
-        this.idImage = idImage;
+    public void setImagesId(String imagesId) {
+        this.imagesId = imagesId;
     }
+
 
 }

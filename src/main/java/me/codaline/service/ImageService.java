@@ -57,6 +57,12 @@ public class ImageService {
         java.awt.List imageList = new java.awt.List();
 
         ServletContext context = request.getSession().getServletContext();
+
+        File myFolder2 = new File(context.getRealPath("") + File.separator + "resources/images/new/");
+
+        for (File file : myFolder2.listFiles())
+            if (!file.isDirectory())
+                file.delete();
         list.forEach(item -> {
 
             try {

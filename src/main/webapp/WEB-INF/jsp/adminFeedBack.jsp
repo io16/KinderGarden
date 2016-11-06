@@ -91,10 +91,13 @@
                 <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
 
 
-                    <li><a href=""> News</a></li>
-                    <li><a href="http://localhost:8080/user/Update?id=0"> Photos</a></li>
-                    <li><a href="http://localhost:8080/user/Update?id=0"> Albums</a></li>
-                    <li><a href="http://localhost:8080/user/Update?id=0"> FeedBacks</a></li>
+
+                    <li><a href="adminGetPosts"> News</a></li>
+                    <li><a href="adminAddPost"> Add Post</a></li>
+
+                    <li><a href="adminPhoto"> Photos</a></li>
+                    <li><a href="adminGallery"> Albums</a></li>
+                    <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>
                 </sec:authorize>

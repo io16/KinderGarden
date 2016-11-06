@@ -4,6 +4,7 @@ import me.codaline.model.Post;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,8 +21,9 @@ public class PostDao {
     @Autowired
     SessionFactory sessionFactory;
 
-    public List<Post> getUsers() {
-        return sessionFactory.getCurrentSession().createCriteria(Post.class).list();
+
+    public List getPosts() {
+        return sessionFactory.getCurrentSession().createCriteria(Post.class).addOrder(Order.desc("id")).list();
     }
 
     public void savePost(Post post) {

@@ -30,6 +30,37 @@ function DeleteFeedBack(id) {
     )
 
 }
+function DeletePost(id) {
+    var token = $("#token").val();
+
+    $.post("adminDeletePost?_csrf=" + token, {
+            idPost: id
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
+
+function DeletePhoto(id) {
+    var token = $("#token").val();
+
+    $.post("adminDeletePhoto?_csrf=" + token, {
+            idPhoto: id
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
 function DeleteAllFeedBacks() {
     var token = $("#token").val();
 
@@ -81,27 +112,7 @@ function Upload() {
         }
     )
 }
-function DeletePost(id) {
-//var firstName = $("#firstName").val();
-//var lastName = $("#lastName").val();
-//var email = $("#email").val();
-    var token = $("#token").val();
 
-
-    $.post("user/deletePost?_csrf=" + token, {
-
-            id: id
-
-        },
-        function (data) {
-            //var json = JSON.parse(data);
-
-            window.location.reload();
-            //  alert(data);
-            //  $("#acontent").html(data);
-        }
-    )
-}
 function EditPost(id) {
 
     $.get("Update?id=" + id)
