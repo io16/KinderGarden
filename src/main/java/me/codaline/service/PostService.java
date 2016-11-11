@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,5 +48,14 @@ public class PostService {
 
         Post post = postDao.getPostById(idPost);
         postDao.deletePost(post);
+    }
+
+    public List<Integer> getIdImages() {
+
+        ArrayList idList = new ArrayList();
+        postDao.getPosts().forEach(i -> {
+            idList.add(i.getIdImage());
+        });
+        return idList;
     }
 }

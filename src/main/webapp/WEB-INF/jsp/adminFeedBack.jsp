@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE HTML>
@@ -51,9 +52,9 @@
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
             FeedBacks:<br>
-            You have ${feedBacksSize} feedBacks <br>
+            You have  ${fn:length(feedBacks)} feedBacks <br>
 
-            <c:if test="${feedBacksSize !=0}">
+            <c:if test="${fn:length(feedBacks) !=0}">
 
                 <button class="button" onclick="DeleteAllFeedBacks()">Delete ALL</button>
                 <br>

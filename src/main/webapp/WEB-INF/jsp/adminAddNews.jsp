@@ -11,7 +11,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 <html>
 <head>
     <title>Blog</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <!--[if lte IE 8]>
@@ -48,6 +48,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <script type="text/javascript">
 
                 $(document).ready(function () {
+                    writeImage('${images}')
                     $('#image_container img').click(function () {
                         //remove border on any images that might be selected
                         $('#image_container img').removeClass("img_border")
@@ -62,7 +63,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     });
 
                 })
-                function SelectImg() {
+                function  SelectImg() {
                     $('#NEWimage_container img').click(function () {
 
                         //remove border on any images that might be selected
@@ -84,29 +85,27 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     border: 4px solid blue;
                 }
             </style>
-
             <form action="adminAddPost?${_csrf.parameterName}=${_csrf.token}" method="post">
                 <input type="text" name="title" placeholder="Title" required value="${post.title}"><br/>
                 <%--<input type="text" name="context" required>--%>
                 <textarea class="text-style1" rows="10" cols="70"
                           STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
                           required>${post.context}</textarea>
-                <input id="image_from_list" name="idImage" type="hidden" value=""/><br/>
+                <input id="image_from_list" name="idImage" type="text" value=""/><br/>
+
 
                 <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
                 <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
                 <input type="submit" value="Add" align="right">
+
                 <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
             </form>
 
             <div id="image_container">
 
-                <c:forEach items="${images}" var="name" varStatus="status">
+                <c:forEach var="img" items="${idImages}">
 
-
-                    <img id="${idImages[status.index]}" style="margin: 10px" width="100px" height="100px"
-                         src="<c:url value='${name}'/> "/>
-
+                    <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
 
                 </c:forEach>
 
@@ -131,7 +130,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#">Blog<c:if test="${ac == true}">${user.firstName }</c:if> </a></h1>
+        <h1 id="logo"><a href="#"> </a></h1>
 
         <!-- Nav -->
         <nav id="nav">

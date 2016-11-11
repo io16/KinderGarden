@@ -1,17 +1,20 @@
 package me.codaline.service;
 
+import com.fasterxml.jackson.core.JsonGenerator;
 import me.codaline.dao.ImageDao;
 
 import me.codaline.model.Image;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 
@@ -37,7 +40,7 @@ public class ImageService {
         }
 
 
-        formatFile = formatFile.substring(formatFile.lastIndexOf("."));
+        formatFile = formatFile.substring(formatFile.lastIndexOf(".") + 1);
         image.setImage(bFile);
         image.setFormatFile(formatFile);
 
@@ -50,38 +53,93 @@ public class ImageService {
         imageDao.deleteImage(image);
     }
 
-    public String[] getImages(HttpServletRequest request) {
+    public JSONObject getImages() {
 
+        JSONObject formatFile = new JSONObject();
+        JSONObject byteCode = new JSONObject();
+        JSONObject mainObj = new JSONObject();
         List<Image> list = imageDao.getImages();
-
-        java.awt.List imageList = new java.awt.List();
-
-        ServletContext context = request.getSession().getServletContext();
-
-        File myFolder2 = new File(context.getRealPath("") + File.separator + "resources/images/new/");
-
-        for (File file : myFolder2.listFiles())
-            if (!file.isDirectory())
-                file.delete();
-        list.forEach(item -> {
-
-            try {
-                //FileOutputStream fos = new FileOutputStream("images\\output.jpg");  //windows
-
-                String saveDirectory = context.getRealPath("") + File.separator + "resources/images/new/";
-                FileOutputStream fos = new FileOutputStream(saveDirectory + item.getId() + item.getFormatFile());
-                fos.write(item.getImage());
-                fos.close();
-
-                imageList.add("resources/images/new/" + item.getId() + item.getFormatFile());
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
-        });
+        try {
+            list.forEach(image -> {
+                try {
+                    formatFile.put(String.valueOf(image.getId()), image.getFormatFile());
+                    byteCode.put(String.valueOf(image.getId()), Base64.getEncoder().encodeToString(image.getImage()));
 
 
-        return imageList.getItems();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            });
+
+
+            JSONArray jsonArrayIds = new JSONArray();
+            JSONArray jsonArrayData = new JSONArray();
+            list.forEach(image -> {
+
+                jsonArrayIds.put(image.getId());
+
+
+            });
+            jsonArrayData.put(formatFile);
+            jsonArrayData.put(byteCode);
+
+            mainObj.put("id", jsonArrayIds);
+            mainObj.put("formats", jsonArrayData);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return mainObj;
+    }
+
+    public JSONObject getImages(List<Integer> idList) {
+
+
+        JSONObject formatFile = new JSONObject();
+        JSONObject byteCode = new JSONObject();
+        JSONObject mainObj = new JSONObject();
+        List<Image> list = imageDao.getImages();
+        try {
+            list.forEach(image -> {
+                if (idList.indexOf(image.getId()) != -1) {
+                    try {
+                        formatFile.put(String.valueOf(image.getId()), image.getFormatFile());
+                        byteCode.put(String.valueOf(image.getId()), Base64.getEncoder().encodeToString(image.getImage()));
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
+            JSONArray jsonArrayIds = new JSONArray();
+            JSONArray jsonArrayData = new JSONArray();
+            list.forEach(image -> {
+                if (idList.indexOf(image.getId()) != -1) {
+
+                    jsonArrayIds.put(image.getId());
+
+
+                }
+            });
+            jsonArrayData.put(formatFile);
+            jsonArrayData.put(byteCode);
+
+            mainObj.put("id", jsonArrayIds);
+            mainObj.put("formats", jsonArrayData);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return mainObj;
     }
 
 

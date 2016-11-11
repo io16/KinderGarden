@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE HTML>
@@ -36,6 +37,55 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 -->
 <body class="left-sidebar">
 
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+        writeImage('${images}')
+        $('#image_container img').click(function () {
+            //remove border on any images that might be selected
+//                        $('#image_container img').removeClass("img_border")
+            $('#NEWimage_container img').removeClass("img_border")
+            if (this.classList.contains("img_border")) {
+                var s = $('#image_from_list').val();
+                var toRemove = event.target.id;
+                this.classList.remove("img_border");
+//                            console.log(s);
+//                           s= s.substring(s.indexOf(toRemove),s.indexOf(toRemove +toRemove.length) )
+//                            console.log(s);
+                var to = s.indexOf(toRemove) + toRemove.length + 1;
+
+//                            console.log(to);
+
+//                            console.log(s.substring(0,s.indexOf(toRemove.toString()))+ s.substring(to))
+                s = s.substring(0, s.indexOf(toRemove.toString())) + s.substring(to)
+                $('#image_from_list').val(s)
+//                            console.log(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to))));
+//                            console.log(s.substring(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to)))));
+            } else {
+                // set the img-source as value of image_from_list
+                var s = $('#image_from_list').val();
+                $('#image_from_list').val($(this).attr("id") + "," + s);
+                $('#data_value').val($(this).attr("id"));
+                // $('#data_value').val( $(this).data("options").color );
+
+                //add border to a clicked image
+                $(this).addClass("img_border")
+            }
+
+        });
+
+
+    })
+
+
+</script>
+<style>
+    .img_border {
+        border: 4px solid blue;
+    }
+</style>
 <!-- Wrapper -->
 <div id="wrapper">
     <c:set var="ac" scope="session" value="${access}"/>
@@ -57,15 +107,26 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         </div>
         <div>
+            You Have ${fn:length(idImages)} photos
+            <div id="image_container">
+            <c:forEach var="img" items="${idImages}" varStatus="status">
+
+                <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
 
 
-            <c:forEach items="${images}" var="name" varStatus="status">
-
-
-                <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
                 <button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>
-
             </c:forEach>
+                <input id="image_from_list" name="idImages" type="text" value=""/><br/>
+                </div>
+           <button class="button"  onclick="DeleteSelectedPhotos()">Delete Selected</button>
+
+            <%--<c:forEach items="${images}" var="name" varStatus="status">--%>
+
+
+                <%--<img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>--%>
+                <%--<button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>--%>
+
+            <%--</c:forEach>--%>
 
             <br>
             <br>

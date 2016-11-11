@@ -49,6 +49,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <script type="text/javascript">
 
                 $(document).ready(function () {
+                    writeImage('${images}')
                     $('#image_container img').click(function () {
                         //remove border on any images that might be selected
                         $('#image_container img').removeClass("img_border")
@@ -101,16 +102,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
             <div id="image_container">
 
-                <c:forEach items="${images}" var="name">
+                <c:forEach var="img" items="${idImages}">
 
-
-
-                    <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
+                    <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
 
                 </c:forEach>
-                <c:forEach items="${idImages}" var="name">
-                    ${name}<br>
-                </c:forEach>
+                <%--<c:forEach items="${idImages}" var="name">--%>
+                    <%--${name}<br>--%>
+                <%--</c:forEach>--%>
 
             </div>
 

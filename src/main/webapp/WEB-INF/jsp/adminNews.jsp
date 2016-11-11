@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE HTML>
@@ -36,6 +37,16 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 -->
 <body class="left-sidebar">
 
+<script language="javascript" type="text/javascript"
+        src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+
+        writeImage('${images}')
+            })
+            </script>
 <!-- Wrapper -->
 <div id="wrapper">
     <c:set var="ac" scope="session" value="${access}"/>
@@ -45,8 +56,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div class="inner">
             <script language="javascript" type="text/javascript"
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
-
-
 
 
             <div id="NEWimage_container"></div>
@@ -59,23 +68,30 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         </div>
         <div>
-            <c:forEach items="${posts}" var="name" varStatus="status">
+            Your Posts: You have  posts   ${fn:length(posts)}<br>
+            <c:forEach items="${posts}" var="name" >
 
                 Post:${status.index+1}<br>
                 ${name.title}<br>
                 ${name.context}<br>
 
-                <c:forEach items="${images}" var="img" varStatus="status">
-                    <c:if test="${idImages[status.index] == name.idImage}">
-                        <img style="margin: 10px" width="100px" height="100px"
-                             src="<c:url value='${img}'/> "/><br>
+                <c:forEach var="img" items="${idImages}">
+                    <c:if test="${img == name.idImage}">
+                        <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
 
                     </c:if>
 
-
                 </c:forEach>
-                <button class="button" onclick="DeletePost('${name.id}')">Delete</button>
-                <br>
+                <%--<c:forEach items="${images}" var="img" varStatus="status">--%>
+                    <%--<c:if test="${idImages[status.index] == name.idImage}">--%>
+                    <%--<img style="margin: 10px" width="100px" height="100px"--%>
+                         <%--src="<c:url value='${img}'/> "/><br>--%>
+
+                <%--</c:if>--%>
+                <%--</c:forEach>--%>
+
+            <button class="button" onclick="DeletePost('${name.id}')">Delete</button>
+            <br>
             </c:forEach>
 
 
@@ -103,9 +119,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
                 <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
-
-
-
 
 
                     <li><a href="adminGetPosts"> News</a></li>

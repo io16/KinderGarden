@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <!DOCTYPE HTML>
@@ -48,37 +48,46 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
             <script type="text/javascript">
 
+
                 $(document).ready(function () {
+                    writeImage('${images}')
                     $('#image_container img').click(function () {
                         //remove border on any images that might be selected
-                        $('#image_container img').removeClass("img_border")
+//                        $('#image_container img').removeClass("img_border")
                         $('#NEWimage_container img').removeClass("img_border")
-                        // set the img-source as value of image_from_list
-                        $('#image_from_list').val($(this).attr("src"));
-                        $('#data_value').val($(this).attr("id"));
-                        // $('#data_value').val( $(this).data("options").color );
+                        if (this.classList.contains("img_border")) {
+                            var s = $('#image_from_list').val();
+                            var toRemove = event.target.id;
+                            this.classList.remove("img_border");
+//                            console.log(s);
+//                           s= s.substring(s.indexOf(toRemove),s.indexOf(toRemove +toRemove.length) )
+//                            console.log(s);
+                            var to = s.indexOf(toRemove) + toRemove.length + 1;
 
-                        //add border to a clicked image
-                        $(this).addClass("img_border")
+//                            console.log(to);
+
+//                            console.log(s.substring(0,s.indexOf(toRemove.toString()))+ s.substring(to))
+                            s = s.substring(0, s.indexOf(toRemove.toString())) + s.substring(to)
+                            $('#image_from_list').val(s)
+//                            console.log(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to))));
+//                            console.log(s.substring(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to)))));
+                        } else {
+                            // set the img-source as value of image_from_list
+                            var s = $('#image_from_list').val();
+                            $('#image_from_list').val($(this).attr("id") + "," + s);
+                            $('#data_value').val($(this).attr("id"));
+                            // $('#data_value').val( $(this).data("options").color );
+
+                            //add border to a clicked image
+                            $(this).addClass("img_border")
+                        }
+
                     });
+
 
                 })
-                function  SelectImg() {
-                    $('#NEWimage_container img').click(function () {
 
-                        //remove border on any images that might be selected
-                        $('#NEWimage_container img').removeClass("img_border")
-                        $('#image_container img').removeClass("img_border")
-                        // set the img-source as value of image_from_list
-                        $('#image_from_list').val($(this).attr("src"));
-                        $('#data_value').val($(this).attr("id"));
-                        // $('#data_value').val( $(this).data("options").color );
 
-                        //add border to a clicked image
-                        $(this).addClass("img_border")
-                    });
-
-                }
             </script>
             <style>
                 .img_border {
@@ -86,22 +95,50 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 }
             </style>
 
-            You Have ${galleriesSize} albums
+            You Have ${fn:length(galleries)} albums
 
-            <div id="image_container">
+            <c:forEach items="${galleries}" var="fb">
+                Title: ${fb.title}<br>
+                Text: ${fb.context}<br>
 
-                <c:forEach items="${images}" var="name">
+            </c:forEach>
 
 
 
-                    <img style="margin: 10px" width="100px" height="100px" src="<c:url value='${name}'/> "/>
+            <%--<script>--%>
 
-                </c:forEach>
-                <c:forEach items="${idImages}" var="name">
-                    ${name}<br>
-                </c:forEach>
 
-            </div>
+            <%--</script>--%>
+
+            <%--</c:forEach>--%>
+
+            <button class="button" onclick="DeleteGallery('${fb.id}')">Delete</button>
+            <br>
+
+
+            Create new Album
+            <form action="adminCreateGallery?${_csrf.parameterName}=${_csrf.token}" method="post">
+                <input type="text" name="title" placeholder="Title" required value="${post.title}"><br/>
+                <%--<input type="text" name="context" required>--%>
+                <textarea class="text-style1" rows="10" cols="70"
+                          STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
+                          required>${post.context}</textarea>
+                <input id="image_from_list" name="idImages" type="text" value=""/><br/>
+
+                <div id="image_container">
+
+
+                    <c:forEach var="img" items="${idImages}">
+
+                        <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
+
+                    </c:forEach>
+                </div>
+                <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
+                <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
+                <input type="submit" value="Add" align="right">
+                <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+            </form>
 
 
         </div>
@@ -120,15 +157,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <ul>
                 <%--<li class="current"><a href="/">Post</a></li>--%>
 
-                <sec:authorize access="hasRole('ROLE_ANONYMOUS')" >
-
+                <sec:authorize access="hasRole('ROLE_ANONYMOUS')">
 
 
                 </sec:authorize>
                 <%--<li><a href="http://localhost:8080/gallery">Gallery</a></li>--%>
 
 
-                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
 
 
                     <li><a href="adminGetPosts"> News</a></li>
@@ -139,7 +175,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>
                 </sec:authorize>
-                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                <sec:authorize access="hasRole('ROLE_ADMIN')">
                     <%--<li><a href="http://localhost:8080/admin/userList">Ban List</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/stat">Stats</a></li>--%>
                     <%--<li><a href="http://localhost:8080/admin/actions">Actions</a></li>--%>

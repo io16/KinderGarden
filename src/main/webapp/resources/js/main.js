@@ -30,6 +30,44 @@ function DeleteFeedBack(id) {
     )
 
 }
+
+function writeImage(json) {
+    // console.log(id)
+
+    var t = JSON.parse(json);
+
+    var id = t['id']
+    var data = t['formats']
+    var format = data[0]
+    var byte = data [1]
+    // var decodedString = Base64.decode(encodedString)
+    for (var i in id) {
+
+
+        document.getElementById(id[i]).src = "data:image/png;base64," + byte[id[i]];
+
+
+    }
+
+
+}
+
+
+function DeleteGallery(id) {
+    var token = $("#token").val();
+
+    $.post("admin/DeleteGallery?_csrf=" + token, {
+            idGallery: id
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
 function DeletePost(id) {
     var token = $("#token").val();
 
@@ -51,6 +89,37 @@ function DeletePhoto(id) {
 
     $.post("adminDeletePhoto?_csrf=" + token, {
             idPhoto: id
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
+function DeleteSelectedPhotos() {
+    var token = $("#token").val();
+    var s = $('#image_from_list').val();
+    var idlist = [];
+    var i = 0;
+    while (s.length != 0) {
+
+        idlist[i] = parseInt(s.substring(0, s.indexOf(',')))
+        s = s.substring(s.indexOf(',') + 1)
+        i++
+
+
+    }
+    console.log(s)
+    var employees = {
+        ids: []
+    };
+    employees.ids.push(idlist)
+    console.dir(employees)
+    $.post("adminDeletePhotos?_csrf=" + token, {
+           idPhotos: JSON.stringify(employees)
 
         }, function () {
 

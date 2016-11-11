@@ -22,7 +22,7 @@ public class PostDao {
     SessionFactory sessionFactory;
 
 
-    public List getPosts() {
+    public List <Post>getPosts() {
         return sessionFactory.getCurrentSession().createCriteria(Post.class).addOrder(Order.desc("id")).list();
     }
 
