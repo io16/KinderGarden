@@ -16,13 +16,13 @@ public class GalleryService {
     @Autowired
     GalleryDao galleryDao;
 
-    public void createGallery(String title, String context, String imagesId) {
+    public Gallery createGallery(String title, String context) {
 
         Gallery gallery = new Gallery();
         gallery.setContext(context);
         gallery.setTitle(title);
-        gallery.setImagesId(imagesId);
         galleryDao.createGallery(gallery);
+        return gallery;
 
 
     }
@@ -39,27 +39,27 @@ public class GalleryService {
 
     }
 
-    public List<List> getIdImagesToGalleries() {
-
-        List<Gallery> galleries = galleryDao.getGalleries();
-
-        List<List> list = new ArrayList();
-
-
-        galleries.forEach(item -> {
-            String ids = item.getImagesId();
-            List<Integer> idImages = new ArrayList();
-            while (ids.length() != 0) {
-                String newIds = ids.substring(0, ids.indexOf(","));
-                idImages.add(Integer.valueOf(newIds));
-                ids = ids.substring(ids.indexOf(",") + 1, ids.length());
-
-
-            }
-            list.add(idImages);
-        });
-
-
-        return list;
-    }
+//    public List<List> getIdImagesToGalleries() {
+//
+//        List<Gallery> galleries = galleryDao.getGalleries();
+//
+//        List<List> list = new ArrayList();
+//
+//
+//        galleries.forEach(item -> {
+//            String ids = item.getImagesId();
+//            List<Integer> idImages = new ArrayList();
+//            while (ids.length() != 0) {
+//                String newIds = ids.substring(0, ids.indexOf(","));
+//                idImages.add(Integer.valueOf(newIds));
+//                ids = ids.substring(ids.indexOf(",") + 1, ids.length());
+//
+//
+//            }
+//            list.add(idImages);
+//        });
+//
+//
+//        return list;
+//    }
 }

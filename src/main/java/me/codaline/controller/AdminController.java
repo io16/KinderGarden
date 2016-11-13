@@ -1,9 +1,10 @@
 package me.codaline.controller;
 
-import me.codaline.service.FeedBackService;
-import me.codaline.service.GalleryService;
-import me.codaline.service.ImageService;
-import me.codaline.service.PostService;
+import me.codaline.model.Gallery;
+import me.codaline.model.ImagesAndGalleries;
+import me.codaline.service.*;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class AdminController {
     GalleryService galleryService;
     @Autowired
     PostService postService;
+    @Autowired
+    ImagesAndGalleriesService imagesAndGalleriesService;
 
     @RequestMapping(value = "adminUpload", method = RequestMethod.POST)
     String uploadImage(ModelMap modelMap, HttpServletRequest request) {
@@ -58,12 +61,6 @@ public class AdminController {
         return "adminPhoto";
     }
 
-    @RequestMapping(value = "safe")
-    String safe(ModelMap modelMap) {
-        modelMap.addAttribute("images", imageService.getImages());
-
-        return "safe";
-    }
 
     @RequestMapping(value = "/admin")
     String adminPage(ModelMap modelMap) {
@@ -108,7 +105,7 @@ public class AdminController {
         modelMap.addAttribute("idImages", imageService.getIdImages());
         modelMap.addAttribute("posts", postService.getPosts());
 
-        return "adminNews";
+        return "adminAddNews";
     }
 
 
@@ -162,8 +159,8 @@ public class AdminController {
 
 
         imageService.deleteImageById(idPhoto);
-        modelMap.addAttribute("n" +
-                "images", imageService.getImages());
+        imagesAndGalleriesService.deleteImage(idPhoto);
+        modelMap.addAttribute("images", imageService.getImages());
         modelMap.addAttribute("idImages", imageService.getIdImages());
 
 
@@ -171,10 +168,18 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/adminDeletePhotos", method = RequestMethod.POST)
-    String adminDeletePhotos(ModelMap modelMap, JSONObject idPhotos) {
+    String adminDeletePhotos(ModelMap modelMap, String idPhotos) {
 
 
-//        imageService.deleteImageById(idPhoto);
+        try {
+            JSONArray jsonArray = new JSONArray(idPhotos);
+            imageService.deleteImageById(jsonArray);
+            imagesAndGalleriesService.deleteImages(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         modelMap.addAttribute("images", imageService.getImages());
         modelMap.addAttribute("idImages", imageService.getIdImages());
 
@@ -188,18 +193,21 @@ public class AdminController {
         modelMap.addAttribute("galleries", galleryService.getGalleries());
         modelMap.addAttribute("images", imageService.getImages());
         modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+        modelMap.addAttribute("imagesAndGalleries", imagesAndGalleriesService.getImagesAndGalleries());
+//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
         return "adminGallery";
     }
 
     @RequestMapping(value = "/adminCreateGallery", method = RequestMethod.POST)
-    String addGallery(ModelMap modelMap, String title, String context, String idImages) {
+    String addGallery(ModelMap modelMap, String title, String context, String idPhotos) {
 
-        galleryService.createGallery(title, context, idImages);
+        Gallery gallery = galleryService.createGallery(title, context);
+        imagesAndGalleriesService.addImages(idPhotos, gallery.getId());
         modelMap.addAttribute("galleries", galleryService.getGalleries());
         modelMap.addAttribute("images", imageService.getImages());
         modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+        modelMap.addAttribute("imagesAndGalleries", imagesAndGalleriesService.getImagesAndGalleries());
+//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
 
         return "adminGallery";
     }
@@ -208,10 +216,12 @@ public class AdminController {
     String deleteGallery(ModelMap modelMap, int idGallery) {
 
         galleryService.deleteGalleryById(idGallery);
+        imagesAndGalleriesService.deleteGallery(idGallery);
         modelMap.addAttribute("galleries", galleryService.getGalleries());
         modelMap.addAttribute("images", imageService.getImages());
         modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+
+//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
 
         return "adminGallery";
     }

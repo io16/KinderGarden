@@ -69,7 +69,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         </div>
         <div>
             Your Posts: You have  posts   ${fn:length(posts)}<br>
-            <c:forEach items="${posts}" var="name" >
+            <c:forEach items="${posts}" var="name"  varStatus="status">
 
                 Post:${status.index+1}<br>
                 ${name.title}<br>

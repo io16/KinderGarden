@@ -53,6 +53,23 @@ public class ImageService {
         imageDao.deleteImage(image);
     }
 
+    public void deleteImageById(JSONArray imageIds) {
+
+        Image image = null;
+        try {
+
+
+            for (int i = 0; i < imageIds.length(); i++) {
+                image = imageDao.getImageById((Integer) imageIds.get(i));
+                imageDao.deleteImage(image);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public JSONObject getImages() {
 
         JSONObject formatFile = new JSONObject();

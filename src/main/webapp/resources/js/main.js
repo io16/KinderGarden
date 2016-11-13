@@ -1,17 +1,4 @@
-//$(document).ready(function() {
-//    $("#DeleteButton").click(createUser)
-//});
 
-//$(document).on("Up","#forma", function(event) {
-//    var $form = $(this);
-//    $.post("/savefiles",
-//        $form.serialize(),
-//        function (data){
-//            alert(data);
-//        }
-//    )
-//    event.preventDefault();
-//});
 function Redirect() {
     window.location.href = "http://localhost:8080/404";
 }
@@ -23,7 +10,6 @@ function DeleteFeedBack(id) {
 
         }, function () {
 
-
             window.location.reload();
 
         }
@@ -31,21 +17,69 @@ function DeleteFeedBack(id) {
 
 }
 
-function writeImage(json) {
-    // console.log(id)
+function writeImage(json, galleryjson) {
 
-    var t = JSON.parse(json);
+
+
+
+        var t = JSON.parse(json);
 
     var id = t['id']
     var data = t['formats']
     var format = data[0]
     var byte = data [1]
-    // var decodedString = Base64.decode(encodedString)
+    console.log(format)
     for (var i in id) {
 
 
-        document.getElementById(id[i]).src = "data:image/png;base64," + byte[id[i]];
+        document.getElementById(id[i]).src = "data:image/"+format[[id[i]]]+";base64," + byte[id[i]];
 
+
+    }
+    if (galleryjson != null) {
+
+        var t2 = JSON.parse(galleryjson);
+        var idGallery = t2['idGalleries']
+
+
+
+        var data2 = t2['Data']
+
+
+        for (var i in idGallery) {
+
+            for (var j in data2[idGallery[i]]) {
+                var images = data2[idGallery[i]]
+                var idImage = 'Gallery' + idGallery[i] + 'Image' + images[j]
+
+                document.getElementById(idImage).src = "data:image/"+format[images[j]]+";base64," + byte[images[j]];
+
+            }
+
+        }
+
+    }
+
+
+}
+function writeImageToGalleries(idGallery, json) {
+    var idDiv = '#Gallery_' + idGallery
+    var t = JSON.parse(json);
+    var id = t['idGalleries']
+
+
+
+    var data = t['Data']
+
+
+    for (var i in id) {
+
+        for (var j in data[id[i]]) {
+            var images = data[id[i]]
+            if (idGallery == id[i])
+                $(idDiv).append(' <img style="margin: 10px" width="100px" height="100px" id="Gallery' + idGallery + 'Image' + images[j] + '" src=""/>');
+
+        }
 
     }
 
@@ -104,22 +138,20 @@ function DeleteSelectedPhotos() {
     var s = $('#image_from_list').val();
     var idlist = [];
     var i = 0;
+    var employees = [];
     while (s.length != 0) {
 
         idlist[i] = parseInt(s.substring(0, s.indexOf(',')))
+        employees.push(parseInt(s.substring(0, s.indexOf(','))))
         s = s.substring(s.indexOf(',') + 1)
         i++
 
 
     }
-    console.log(s)
-    var employees = {
-        ids: []
-    };
-    employees.ids.push(idlist)
+
     console.dir(employees)
     $.post("adminDeletePhotos?_csrf=" + token, {
-           idPhotos: JSON.stringify(employees)
+            idPhotos: JSON.stringify(employees)
 
         }, function () {
 
@@ -130,6 +162,39 @@ function DeleteSelectedPhotos() {
     )
 
 }
+function AddImagesToGallery() {
+    var token = $("#token").val();
+    var s = $('#image_from_list').val();
+    var title = $('#titleGallery').val();
+    var context = $('#contextGallery').val();
+    var idlist = [];
+    var i = 0;
+    var employees = [];
+    while (s.length != 0) {
+
+        idlist[i] = parseInt(s.substring(0, s.indexOf(',')))
+        employees.push(parseInt(s.substring(0, s.indexOf(','))))
+        s = s.substring(s.indexOf(',') + 1)
+        i++
+
+
+    }
+
+    $.post("adminCreateGallery?_csrf=" + token, {
+            idPhotos: JSON.stringify(employees),
+            title: title,
+            context: context
+
+        }, function () {
+
+
+            window.location.reload();
+
+        }
+    )
+
+}
+
 function DeleteAllFeedBacks() {
     var token = $("#token").val();
 

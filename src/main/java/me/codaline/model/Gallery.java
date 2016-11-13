@@ -18,7 +18,7 @@ public class Gallery {
     private String title;
     private String context;
     private String date;
-    private String imagesId;
+
 
 
     public int getId() {
@@ -53,13 +53,7 @@ public class Gallery {
         this.date = date;
     }
 
-    public String getImagesId() {
-        return imagesId;
-    }
 
-    public void setImagesId(String imagesId) {
-        this.imagesId = imagesId;
-    }
 
 
 }
