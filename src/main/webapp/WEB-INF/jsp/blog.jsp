@@ -1,6 +1,9 @@
+
+<html>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!--[if IE 8 ]> <html class="ie8 no-js"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="not-ie no-js">  <!--<![endif]-->
 	<head>
@@ -18,8 +21,20 @@
 
 		<script src="../../resources/js/modernizr.js"></script>
 		<script src="../../resources/js/respond.js"></script>
+		<script src="../../resources/js/jquery.min.js"></script>
+		<script src="../../resources/js/main.js"></script>
+
 	</head>
 	<body>
+	<script type="text/javascript">
+
+
+
+		$(document).ready(function () {
+
+			writeImage('${images}',null)
+		})
+	</script>
 		<div class="container" id="wrapper">
 
 			<!-- header -->
@@ -60,6 +75,20 @@
 					<h1>Новини</h1>
 				</div>
 
+				<c:forEach items="${posts}" var="name"  varStatus="status">
+
+				Post:${status.index+1}<br>
+					${name.title}<br>
+					${name.context}<br>
+
+				<c:forEach var="img" items="${idImages}">
+					<c:if test="${img == name.idImage}">
+						<img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
+
+					</c:if>
+
+				</c:forEach>
+				</c:forEach>
 				<div class="content-bg">
 					<div class="col-lg-6 col-sm-12">
 						<h2 class="entry-title post-title"><a href="blog-post.html">Заголовок №1</a></h2>
@@ -109,8 +138,9 @@
 
 					<div class="clearfix"><br /></div>
 					<div class="col-12">
-						<a class="button green pull-left"><span>&#xf137;</span>Раніше</a>
-						<a class="button green pull-right"><span>&#xf138;</span>Новіше</a>
+						<a class="button green pull-left" onclick="preview(page)"><span>&#xf137;</span>Раніше</a>
+                        <button class="button green pull-right" onclick="writeImage('${idImages}',null,'1','1')"> New</button>
+						<%--<a class="button green pull-right" onclick="next('${images}','1', '${fn:length(posts)}' )"><span>&#xf138;</span>Новіше</a>--%>
 					</div>
 					<div class="clearfix"></div>
 				</div>
@@ -156,4 +186,4 @@
 		<script src="../../resources/js/jquery.prettyPhoto.js"></script>
 
 	</body>
-</html>
+	</html>

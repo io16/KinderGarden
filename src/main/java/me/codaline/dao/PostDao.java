@@ -1,6 +1,7 @@
 package me.codaline.dao;
 
 import me.codaline.model.Post;
+import me.codaline.model.Post;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 

@@ -1,12 +1,10 @@
 package me.codaline.controller;
 
 import me.codaline.model.Gallery;
-import me.codaline.model.ImagesAndGalleries;
+import me.codaline.model.Gallery;
 import me.codaline.service.*;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,8 +16,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,7 +54,7 @@ public class AdminController {
             }
         });
         modelMap.addAttribute("images", imageService.getImages());
-        return "adminPhoto";
+        return "adminAddNews";
     }
 
 
@@ -212,7 +208,7 @@ public class AdminController {
         return "adminGallery";
     }
 
-    @RequestMapping(value = "/DeleteGallery", method = RequestMethod.POST)
+    @RequestMapping(value = "/adminDeleteGallery", method = RequestMethod.POST)
     String deleteGallery(ModelMap modelMap, int idGallery) {
 
         galleryService.deleteGalleryById(idGallery);

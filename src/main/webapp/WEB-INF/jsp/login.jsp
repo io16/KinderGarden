@@ -50,7 +50,7 @@
     <c:if test="${not empty msg}">
         <div class="msg">${msg}</div>
     </c:if>
-    <form action="<c:url value='/login' />" method="post">
+    <form action="/login?${_csrf.parameterName}=${_csrf.token} " method="post">
         <fieldset class="clearfix">
             <c:if test="${status == false}">
                 <p>False login or pass </p>
@@ -61,8 +61,8 @@
             </p> <!-- JS because of IE support; better: placeholder="Password" -->
             <p><input type="submit" value="Log in"></p>
         </fieldset>
-        <input type="hidden" name="${_csrf.parameterName}"
-               value="${_csrf.token}"/>
+        <%--<input type="hidden" name="${_csrf.parameterName}"--%>
+               <%--value="${_csrf.token}"/>--%>
     </form>
 
     <a href="/"><span class="fontawesome-arrow-left"> Back </span></a>

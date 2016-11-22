@@ -102,6 +102,9 @@
 						<div class="col-12">
 							<input class="button red" type="submit" value=" НАДІСЛАТИ" />
 						</div>
+
+						<input  id="token" type="hidden" name="${_csrf.parameterName}"
+								value="${_csrf.token}" />
 					</form>
 					<div class="clearfix"></div>
 				</div>

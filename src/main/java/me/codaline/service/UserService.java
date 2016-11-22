@@ -1,42 +1,57 @@
 package me.codaline.service;
 
+
 import me.codaline.dao.UserDao;
+import me.codaline.dao.UserDaoImpl;
+
 import me.codaline.model.User;
-import me.codaline.dao.UserDao;
+import me.codaline.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 
 @Service
+@Transactional
 public class UserService {
 
     @Autowired
-    UserDao userDao;
+    UserDaoImpl dao;
 
-    public User createUser(String firstName, String lastName, String email) {
 
+    public void createUser(String userName, String pass, String email, String firstName) {
         User user = new User();
-
-        user.setLastName(lastName);
-        user.setFirstName(firstName);
+        user.setEnabled(false);
+        user.setPassword(pass);
+        user.setUsername(userName);
         user.setEmail(email);
-        user.setPass(generatePass());
+        user.setFirstName(firstName);
+        UserRole userRole = new UserRole();
+        userRole.setRole("ROLE_USER");
+        userRole.setUser(user);
+        dao.saveUser(user, userRole);
 
-        userDao.save(user);
-
-        return user;
     }
+
+
+
+
 
     public List<User> getUsers() {
-        return userDao.getUsers();
+        return dao.getUsers();
     }
 
-    public User getUser(String email) {
-        return userDao.getUser(email);
+    public void setAccess(String username, boolean status) {
+        dao.setAccess(username, status);
     }
 
-    private String generatePass() {
-        return "myGeneratedPass"; //TODO generate random email!!!!
+    public User getUser(String userName) {
+        return dao.findByUserName(userName);
     }
+
+
 }

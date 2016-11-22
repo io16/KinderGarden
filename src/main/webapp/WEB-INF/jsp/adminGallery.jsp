@@ -142,7 +142,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
             <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
             <input type="submit" value="Add" onclick="AddImagesToGallery()" align="right">
-            <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+
+            <input  id="token" type="hidden" name="${_csrf.parameterName}"
+                    value="${_csrf.token}" />
 
 
         </div>

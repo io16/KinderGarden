@@ -1,4 +1,3 @@
-
 function Redirect() {
     window.location.href = "http://localhost:8080/404";
 }
@@ -17,30 +16,55 @@ function DeleteFeedBack(id) {
 
 }
 
-function writeImage(json, galleryjson) {
+function writeImage(json, galleryjson, page,pageMax) {
 
 
-
-
+    if (page == null) {
         var t = JSON.parse(json);
 
-    var id = t['id']
-    var data = t['formats']
-    var format = data[0]
-    var byte = data [1]
-    console.log(format)
-    for (var i in id) {
+        var id = t['id']
+        var data = t['formats']
+        var format = data[0]
+        var byte = data [1]
+
+        for (var i in id) {
 
 
-        document.getElementById(id[i]).src = "data:image/"+format[[id[i]]]+";base64," + byte[id[i]];
+            document.getElementById(id[i]).src = "data:image/" + format[[id[i]]] + ";base64," + byte[id[i]];
 
+
+        }
+    }
+    else {
+        console.log("dasdasdasdas")
+        var divPageMax = Math.floor(pageMax / 4);
+        var modPageMax = pageMax % 4
+        if (modPageMax > 0)
+            divPageMax++;
+        if (page <= divPageMax) {
+
+            page = page + 1;
+        }
+        var t = JSON.parse(json);
+
+        var id = t['id']
+        var data = t['formats']
+        var format = data[0]
+        var byte = data [1]
+        for (var i = page * 4 in id) {
+
+            document.getElementById(id[i]).src = "data:image/" + format[[id[i]]] + ";base64," + byte[id[i]];
+
+            if (i + 4 >= page * 4)
+                break
+
+        }
 
     }
     if (galleryjson != null) {
 
         var t2 = JSON.parse(galleryjson);
         var idGallery = t2['idGalleries']
-
 
 
         var data2 = t2['Data']
@@ -52,7 +76,7 @@ function writeImage(json, galleryjson) {
                 var images = data2[idGallery[i]]
                 var idImage = 'Gallery' + idGallery[i] + 'Image' + images[j]
 
-                document.getElementById(idImage).src = "data:image/"+format[images[j]]+";base64," + byte[images[j]];
+                document.getElementById(idImage).src = "data:image/" + format[images[j]] + ";base64," + byte[images[j]];
 
             }
 
@@ -66,7 +90,6 @@ function writeImageToGalleries(idGallery, json) {
     var idDiv = '#Gallery_' + idGallery
     var t = JSON.parse(json);
     var id = t['idGalleries']
-
 
 
     var data = t['Data']
@@ -90,7 +113,7 @@ function writeImageToGalleries(idGallery, json) {
 function DeleteGallery(id) {
     var token = $("#token").val();
 
-    $.post("admin/DeleteGallery?_csrf=" + token, {
+    $.post("adminDeleteGallery?_csrf=" + token, {
             idGallery: id
 
         }, function () {
@@ -247,7 +270,12 @@ function Upload() {
     )
 }
 
-function EditPost(id) {
 
-    $.get("Update?id=" + id)
+function preview(json, page) {
+
+    if (page > 1) {
+        page--;
+        writeImage(json, null, page)
+    }
+
 }

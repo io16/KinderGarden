@@ -1,4 +1,4 @@
-package me.codaline;
+package me.codaline.core;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,6 +33,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         return resolver;
     }
 
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
         configurer.enable();
@@ -41,6 +42,13 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-        registry.addResourceHandler("/resources/images/**").addResourceLocations("/resources/images/");
+        registry.addResourceHandler("/admin/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/user/resources/**").addResourceLocations("/resources/");
+        registry.addResourceHandler("/getMail/resources/**").addResourceLocations("/resources/");
+
+
+        //registry.addResourceHandler("/ROOT/resources/**").addResourceLocations("/resources/images/");
+
     }
+
 }

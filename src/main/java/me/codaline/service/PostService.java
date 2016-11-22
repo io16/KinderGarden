@@ -2,6 +2,8 @@ package me.codaline.service;
 
 import me.codaline.dao.PostDao;
 import me.codaline.model.Post;
+import me.codaline.dao.PostDao;
+import me.codaline.model.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

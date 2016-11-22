@@ -131,11 +131,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <br>
             <br>
             <br>
-            <form action="adminUpload" method="post" enctype="multipart/form-data">
+            <form action="adminUpload?_csrf=${_csrf.token}" method="post" enctype="multipart/form-data">
                 Upload Photos
                 <input name="file" type="file" multiple="multiple">
                 <input type="submit" value="Upload">
 
+                <input  id="token" type="hidden" name="${_csrf.parameterName}"
+                       value="${_csrf.token}" />
             </form>
 
         </div>

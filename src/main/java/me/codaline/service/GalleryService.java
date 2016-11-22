@@ -2,10 +2,11 @@ package me.codaline.service;
 
 import me.codaline.dao.GalleryDao;
 import me.codaline.model.Gallery;
+import me.codaline.dao.GalleryDao;
+import me.codaline.model.Gallery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,27 +40,5 @@ public class GalleryService {
 
     }
 
-//    public List<List> getIdImagesToGalleries() {
-//
-//        List<Gallery> galleries = galleryDao.getGalleries();
-//
-//        List<List> list = new ArrayList();
-//
-//
-//        galleries.forEach(item -> {
-//            String ids = item.getImagesId();
-//            List<Integer> idImages = new ArrayList();
-//            while (ids.length() != 0) {
-//                String newIds = ids.substring(0, ids.indexOf(","));
-//                idImages.add(Integer.valueOf(newIds));
-//                ids = ids.substring(ids.indexOf(",") + 1, ids.length());
-//
-//
-//            }
-//            list.add(idImages);
-//        });
-//
-//
-//        return list;
-//    }
+
 }

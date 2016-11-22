@@ -1,9 +1,11 @@
 package me.codaline.dao;
 
 import me.codaline.model.FeedBack;
+import me.codaline.model.FeedBack;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -31,7 +33,7 @@ public class FeedBackDao {
     }
 
     public List<FeedBack> getFeedBacks() {
-        return sessionFactory.getCurrentSession().createCriteria(FeedBack.class).list();
+        return sessionFactory.getCurrentSession().createCriteria(FeedBack.class).addOrder(Order.desc("id")).list();
     }
 
     public void deleteFeedBack(FeedBack feedBack) {

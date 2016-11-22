@@ -1,6 +1,6 @@
 package me.codaline.service;
 
-import com.fasterxml.jackson.core.JsonGenerator;
+import me.codaline.model.Image;
 import me.codaline.dao.ImageDao;
 
 import me.codaline.model.Image;
@@ -10,9 +10,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;

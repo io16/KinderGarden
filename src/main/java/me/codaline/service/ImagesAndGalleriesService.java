@@ -2,6 +2,8 @@ package me.codaline.service;
 
 import me.codaline.dao.ImagesAndGalleriesDao;
 import me.codaline.model.ImagesAndGalleries;
+import me.codaline.dao.ImagesAndGalleriesDao;
+import me.codaline.model.ImagesAndGalleries;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

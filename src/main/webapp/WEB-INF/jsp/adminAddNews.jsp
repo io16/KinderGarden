@@ -98,7 +98,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
                 <input type="submit" value="Add" align="right">
 
-                <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+
+                <input  id="token" type="hidden" name="${_csrf.parameterName}"
+                        value="${_csrf.token}" />
             </form>
 
             <div id="image_container">
