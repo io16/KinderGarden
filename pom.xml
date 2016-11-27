@@ -125,11 +125,6 @@
             <version>1.2.2</version>
         </dependency>
         <!-- Jackson JSON Mapper -->
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
 
         <!-- Spring Security -->
 

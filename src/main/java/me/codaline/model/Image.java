@@ -10,17 +10,23 @@ public class Image {
     @Id
     @GeneratedValue
     private int id;
-    private String formatFile;
-    @Lob
-    @Column(name = "Post_IMAGE", nullable = false, columnDefinition = "mediumblob")
-    private byte[] image;
+    private String date;
+    private String path;
 
-    public String getFormatFile() {
-        return formatFile;
+    public String getPath() {
+        return path;
     }
 
-    public void setFormatFile(String formatFile) {
-        this.formatFile = formatFile;
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId() {
@@ -29,13 +35,5 @@ public class Image {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 }

@@ -48,7 +48,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <script type="text/javascript">
 
                 $(document).ready(function () {
-                    writeImage('${images}')
+                    setJson('${images}')
+                    writeImage()
                     $('#image_container img').click(function () {
                         //remove border on any images that might be selected
                         $('#image_container img').removeClass("img_border")
@@ -154,6 +155,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                     <li><a href="adminPhoto"> Photos</a></li>
                     <li><a href="adminGallery"> Albums</a></li>
+                    <li><a href="adminAddGallery"> Add Albums</a></li>
                     <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>

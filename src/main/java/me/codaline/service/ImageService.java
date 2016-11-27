@@ -4,15 +4,23 @@ import me.codaline.model.Image;
 import me.codaline.dao.ImageDao;
 
 import me.codaline.model.Image;
+import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.FileInputStream;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,42 +31,76 @@ import java.util.List;
 public class ImageService {
     @Autowired
     ImageDao imageDao;
+    private LocalDateTime today;
 
-    public void safeImage(FileInputStream fileInputStream, long size, String formatFile) {
+    public void safeImage(byte[] bytes, HttpServletRequest request) {
 
+        today = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         Image image = new Image();
-        byte[] bFile = new byte[(int) size];
+        LocalDate date =  LocalDate.now();
+
+        image.setDate(String.valueOf(date));
 
         try {
 
-            fileInputStream.read(bFile);
-            fileInputStream.close();
-        } catch (Exception e) {
+            //"/home/igor/IdeaProjects/KinderGarten/src/main/webapp/resources/images/"
+            ServletContext context = request.getSession().getServletContext();
+            int idImage = today.hashCode();
+            if (context.getRealPath("").indexOf("/") >= 0) {
+                String saveDirectory = context.getRealPath("") + "/resources/images/new/";
+
+
+                String path = saveDirectory + idImage + ".png";
+                FileUtils.writeByteArrayToFile(new File(path), bytes);
+                path = "resources/images/new/" + idImage + ".png";
+                image.setPath(path);
+            } else {
+                String saveDirectory = context.getRealPath("") + "\\resources\\images\\new\\";
+                String path = saveDirectory + idImage + ".png";
+                FileUtils.writeByteArrayToFile(new File(path), bytes);
+                path = "resources\\images\\new\\" + idImage + ".png";
+                image.setPath(path);
+            }
+            imageDao.saveImage(image);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
 
-        formatFile = formatFile.substring(formatFile.lastIndexOf(".") + 1);
-        image.setImage(bFile);
-        image.setFormatFile(formatFile);
-
-        imageDao.saveImage(image);
     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+
+
+        result = 37 * result + (today == null ? 0 : today.hashCode());
+
+        return result;
+    }
+
 
     public void deleteImageById(int imageId) {
 
         Image image = imageDao.getImageById(imageId);
+        File file = new File(image.getPath());
+        file.delete();
+
         imageDao.deleteImage(image);
     }
 
     public void deleteImageById(JSONArray imageIds) {
 
-        Image image = null;
+        File file;
+        Image image;
         try {
 
 
             for (int i = 0; i < imageIds.length(); i++) {
                 image = imageDao.getImageById((Integer) imageIds.get(i));
+                file = new File(image.getPath());
+                file.delete();
                 imageDao.deleteImage(image);
 
             }
@@ -68,85 +110,47 @@ public class ImageService {
 
     }
 
-    public JSONObject getImages() {
 
-        JSONObject formatFile = new JSONObject();
-        JSONObject byteCode = new JSONObject();
+    public JSONObject getImages(List<Integer> idList) {
         JSONObject mainObj = new JSONObject();
+        JSONObject imagesDate = new JSONObject();
+        JSONObject imagesPath = new JSONObject();
+        JSONArray jsonArrayIds = new JSONArray();
         List<Image> list = imageDao.getImages();
         try {
             list.forEach(image -> {
                 try {
-                    formatFile.put(String.valueOf(image.getId()), image.getFormatFile());
-                    byteCode.put(String.valueOf(image.getId()), Base64.getEncoder().encodeToString(image.getImage()));
+                    if (idList != null) {
+
+                        if (idList.indexOf(image.getId()) != -1) {
+
+                            imagesDate.put(String.valueOf(image.getId()), image.getDate());
+                            imagesPath.put(String.valueOf(image.getId()), image.getPath());
+                            jsonArrayIds.put(image.getId());
 
 
+                        }
+                    } else {
+
+                        imagesDate.put(String.valueOf(image.getId()), image.getDate());
+                        imagesPath.put(String.valueOf(image.getId()), image.getPath());
+
+                        jsonArrayIds.put(image.getId());
+
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             });
 
 
-            JSONArray jsonArrayIds = new JSONArray();
             JSONArray jsonArrayData = new JSONArray();
-            list.forEach(image -> {
 
-                jsonArrayIds.put(image.getId());
-
-
-            });
-            jsonArrayData.put(formatFile);
-            jsonArrayData.put(byteCode);
+            jsonArrayData.put(imagesDate);
+            jsonArrayData.put(imagesPath);
 
             mainObj.put("id", jsonArrayIds);
-            mainObj.put("formats", jsonArrayData);
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        return mainObj;
-    }
-
-    public JSONObject getImages(List<Integer> idList) {
-
-
-        JSONObject formatFile = new JSONObject();
-        JSONObject byteCode = new JSONObject();
-        JSONObject mainObj = new JSONObject();
-        List<Image> list = imageDao.getImages();
-        try {
-            list.forEach(image -> {
-                if (idList.indexOf(image.getId()) != -1) {
-                    try {
-                        formatFile.put(String.valueOf(image.getId()), image.getFormatFile());
-                        byteCode.put(String.valueOf(image.getId()), Base64.getEncoder().encodeToString(image.getImage()));
-
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-
-            JSONArray jsonArrayIds = new JSONArray();
-            JSONArray jsonArrayData = new JSONArray();
-            list.forEach(image -> {
-                if (idList.indexOf(image.getId()) != -1) {
-
-                    jsonArrayIds.put(image.getId());
-
-
-                }
-            });
-            jsonArrayData.put(formatFile);
-            jsonArrayData.put(byteCode);
-
-            mainObj.put("id", jsonArrayIds);
-            mainObj.put("formats", jsonArrayData);
+            mainObj.put("images", jsonArrayData);
 
 
         } catch (JSONException e) {
@@ -158,7 +162,7 @@ public class ImageService {
     }
 
 
-    public List getIdImages() {
+    public List<Integer> getIdImages() {
 
         ArrayList<Integer> idList = new ArrayList<>();
 

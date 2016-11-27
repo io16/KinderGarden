@@ -1,6 +1,8 @@
 package me.codaline.controller;
 
 import me.codaline.service.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,15 +33,17 @@ public class MyController {
     PostService postService;
     @Autowired
     ImagesAndGalleriesService imagesAndGalleriesService;
+
     @RequestMapping("/")
     String index() {
         return "index";
     }
+
     @RequestMapping(value = "/sccss")
     public ModelAndView defaul() {
 //        String date = new Date(System.currentTimeMillis()).toString();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetail = null ;
+        UserDetails userDetail = null;
 //        if (!(auth instanceof AnonymousAuthenticationToken)) {
 //            userDetail = (UserDetails) auth.getPrincipal();
 //            service.setAction(userDetail.getUsername(), "login in ", null, date);
@@ -87,6 +92,7 @@ public class MyController {
 
         return error;
     }
+
     @RequestMapping("/index.html")
     String indexHtml() {
         return "index";
@@ -103,13 +109,30 @@ public class MyController {
     }
 
     @RequestMapping("/gallery.html")
-    String gallery() {return "gallery";}
+    String gallery(ModelMap modelMap) {
+        JSONObject mainObject = new JSONObject();
 
-    @RequestMapping("/blog.html")  //TODO пеередавать пости і зробити навігацію  без перезавантаження сторінки
+        try {
+            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
+            mainObject.put("galleries", galleryService.getGalleries());
+            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("galleries", mainObject);
+        return "gallery";
+    }
+
+    @RequestMapping("/blog.html")
     String blogPage(ModelMap modelMap) {
-        modelMap.addAttribute("images", imageService.getImages(postService.getIdImages()));
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("posts", postService.getPosts());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(postService.getIdImages()));
+            jsonObject.put("posts", postService.getPosts());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("posts", jsonObject);
         return "blog";
     }
 
@@ -117,10 +140,17 @@ public class MyController {
     String adminPage() {
         return "contact";
     }
+
     @RequestMapping("/registration")
     String registration() {
         return "registration";
     }
+
+//
+
+
+
+
 
 
 }

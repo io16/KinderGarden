@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <!DOCTYPE HTML>
@@ -50,7 +51,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
                 $(document).ready(function () {
-                    writeImage('${images}','${imagesAndGalleries}')
+                    setJson('${galleries}')
+                    getGalleries(1)
+                    getDeleteButtonsToGalleries(1)
+
+
                     $('#image_container img').click(function () {
                         //remove border on any images that might be selected
 //                        $('#image_container img').removeClass("img_border")
@@ -95,56 +100,15 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 }
             </style>
 
-            You Have ${fn:length(galleries)} albums
+            <div id="div_gallery_context">
 
-            <c:forEach items="${galleries}" var="fb">
-                <div id="Gallery_${fb.id}">
-                        <%--<button class="button" onclick="writeImageToGalleries('${imagesAndGalleries}')">ShowPhotos</button>--%>
-                    <script>writeImageToGalleries('${fb.id}', '${imagesAndGalleries}')</script>
-                    <br>
-                    Title: ${fb.title}<br>
-                    Text: ${fb.context}<br>
-                    <button class="button" onclick="DeleteGallery('${fb.id}')">Delete</button>
-                </div>
+            </div>
 
-            </c:forEach>
-
-
-            <%--<script>--%>
-
-
-            <%--</script>--%>
-
-            <%--</c:forEach>--%>
+            <a class="button green pull-right" id="showButton" onclick="nextGalleryPage(true)"><span>&#xf138;</span>Показати ще </a>
 
 
             <br>
 
-
-            Create new Album
-
-            <input type="text" id="titleGallery" name="title" placeholder="Title" required value="${post.title}"><br/>
-            <%--<input type="text" name="context" required>--%>
-            <textarea id="contextGallery" class="text-style1" rows="10" cols="70"
-                      STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
-                      required>${post.context}</textarea>
-            <input id="image_from_list" name="idImages" type="text" value=""/><br/>
-
-            <div id="image_container">
-
-
-                <c:forEach var="img" items="${idImages}">
-
-                    <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
-
-                </c:forEach>
-            </div>
-            <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
-            <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-            <input type="submit" value="Add" onclick="AddImagesToGallery()" align="right">
-
-            <input  id="token" type="hidden" name="${_csrf.parameterName}"
-                    value="${_csrf.token}" />
 
 
         </div>
@@ -177,6 +141,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     <li><a href="adminAddPost"> Add Post</a></li>
                     <li><a href="adminPhoto"> Photos</a></li>
                     <li><a href="adminGallery"> Albums</a></li>
+                    <li><a href="adminAddGallery"> Add Albums</a></li>
                     <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>
@@ -214,5 +179,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 </div>
 
+
 </body>
+
 </html>

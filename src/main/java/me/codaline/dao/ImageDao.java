@@ -21,8 +21,9 @@ public class ImageDao {
     @Autowired
     SessionFactory sessionFactory;
 
-    public void saveImage(Image image) {
-        sessionFactory.getCurrentSession().save(image);
+    public Image saveImage(Image image) {
+         sessionFactory.getCurrentSession().saveOrUpdate(image);
+        return image;
     }
 
     public Image getImageById(int id) {

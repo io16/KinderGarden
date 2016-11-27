@@ -15,75 +15,147 @@ function DeleteFeedBack(id) {
     )
 
 }
+function getDeleteButtonsToPosts(page) {
+    var t = JSON.parse(globalJson)
+    var posts = t['posts']
+    var postData = posts['postData']
+    var idPosts = posts['idPosts']
+    var i = (page * 4) - 4
+    var counter = 0
 
-function writeImage(json, galleryjson, page,pageMax) {
+    for (i; i < idPosts.length && counter <= 3; i++, counter++) {
 
+        var tempPostData = idPosts[i]
 
-    if (page == null) {
-        var t = JSON.parse(json);
+        var idDiv = '#idPost' + tempPostData
 
-        var id = t['id']
-        var data = t['formats']
-        var format = data[0]
-        var byte = data [1]
-
-        for (var i in id) {
-
-
-            document.getElementById(id[i]).src = "data:image/" + format[[id[i]]] + ";base64," + byte[id[i]];
-
-
-        }
+        $(idDiv).append('<button class="button" onclick="DeletePost(' + tempPostData + ')">Delete</button> <br> ');
     }
-    else {
-        console.log("dasdasdasdas")
-        var divPageMax = Math.floor(pageMax / 4);
-        var modPageMax = pageMax % 4
-        if (modPageMax > 0)
-            divPageMax++;
-        if (page <= divPageMax) {
+}
+function getDeleteButtonsToGalleries(page) {
+    var t = JSON.parse(globalJson)
 
-            page = page + 1;
-        }
-        var t = JSON.parse(json);
+    var galleries = t['galleries']
+    var idGalleries = galleries['idGalleries']
 
-        var id = t['id']
-        var data = t['formats']
-        var format = data[0]
-        var byte = data [1]
-        for (var i = page * 4 in id) {
+    var i = (page * 4) - 4
+    var counter = 0
 
-            document.getElementById(id[i]).src = "data:image/" + format[[id[i]]] + ";base64," + byte[id[i]];
+    for (i; i < idGalleries.length && counter <= 3; i++, counter++) {
 
-            if (i + 4 >= page * 4)
-                break
+        var tempGalleryData = idGalleries[i]
 
-        }
+        var idDiv = '#idGalleryButton' + tempGalleryData
 
+        $(idDiv).append('<button class="button" onclick="DeleteGallery(' + tempGalleryData + ')">Delete</button> <br> ');
     }
-    if (galleryjson != null) {
-
-        var t2 = JSON.parse(galleryjson);
-        var idGallery = t2['idGalleries']
+}
+function getPosts(page) {
 
 
-        var data2 = t2['Data']
+    var t = JSON.parse(globalJson)
+    var posts = t['posts']
+    var postData = posts['postData']
+    var idPosts = posts['idPosts']
 
+    var images = t['images']
+    var data = images['images']
+    var imagesDate = data[0]
+    var imagesSRC = data [1]
 
-        for (var i in idGallery) {
-
-            for (var j in data2[idGallery[i]]) {
-                var images = data2[idGallery[i]]
-                var idImage = 'Gallery' + idGallery[i] + 'Image' + images[j]
-
-                document.getElementById(idImage).src = "data:image/" + format[images[j]] + ";base64," + byte[images[j]];
-
-            }
-
-        }
+    if (page >= getMaxPageToPost()) {
+        document.getElementById('showButton').style.display = 'none';
 
     }
 
+    var i = (page * 4) - 4
+    var counter = 0
+
+
+    for (i; i < idPosts.length && counter <= 3; i++, counter++) {
+
+
+        var tempPostData = idPosts[i]
+        var tempIdImage = postData[tempPostData];
+
+
+        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"><a href="blog-post.html">' + tempIdImage[0] + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempIdImage[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempIdImage[3]] + '"/> <p>' + tempIdImage[1] + '</p> <a class="button blue"><span>&#xf138;</span>Show</a> <div class="separator"></div> </div> ');
+
+
+            $('#div_post_context').append('<div class="clearfix"></div>')
+
+
+
+
+    }
+
+
+}
+function getGalleries(page) {
+    var t = JSON.parse(globalJson)
+
+    var images = t['images']
+
+
+    var data = images['images']
+    var imagesDate = data[0]
+    var imagesSRC = data [1]
+
+    var galleries = t['galleries']
+    var galleryData = galleries['galleryData']
+    var idGalleries = galleries['idGalleries']
+
+    var galleryAndImageIds = t['galleryAndImageIds']
+    var idData = galleryAndImageIds['data']
+
+    if (page >= getMaxPageToGallery()) {
+        document.getElementById('showButton').style.display = 'none';
+
+    }
+    var i = (page * 4) - 4
+    var counter = 0
+
+    $('#div_gallery_context').append(' <div class="content-bg"> ')
+    for (i; i < idGalleries.length && counter <= 3; i++, counter++) {
+        var tempIdImage = idData[idGalleries[i]];
+        var tempGalleryData = galleryData[idGalleries[i]]
+
+        $('#div_gallery_context').append('<div id="idGallery' + idGalleries[i] + '"></div>	<h2 class="green-title"><span class="fa"></span>' + tempGalleryData[2] + '   ' + tempGalleryData[0] + '</h2> <p>' + tempGalleryData[1] + '</p> <div class="gallery">  ')
+        for (var j in tempIdImage) {
+
+
+            $('#div_gallery_context').append('<a href="' + imagesSRC[tempIdImage[j]] + '" rel="prettyphoto[gallery' + idGalleries[i] + ']"><img  style="margin: 10px" width="100px" height="100px"  src="' + imagesSRC[tempIdImage[j]] + '" alt="" /></a>');
+        }
+        $('#div_gallery_context').append(' <div class="clearfix"></div> </div><div id="idGalleryButton' + idGalleries[i] + '"</div>   <div class="separator"></div>')
+        if (i % 2 == 1) {
+
+            $('#div_gallery_context').append('<div class="clearfix"></div>')
+
+        }
+
+
+
+
+
+    }
+    $('#div_gallery_context').append('</div>')
+}
+
+
+function writeImage() {
+
+    var t = JSON.parse(globalJson);
+    var images = t['images']
+    var id = images['id']
+    var data = images['images']
+    var imageDate = data[0]
+    var imagesSRC = data[1]
+
+    for (var i in id) {
+
+        $('#image_container').append('<img  id="' + id[i] + '" style="margin: 10px" width="100px" height="100px"  src="' + imagesSRC[id[i]] + '"/>')
+
+    }
 
 }
 function writeImageToGalleries(idGallery, json) {
@@ -229,53 +301,59 @@ function DeleteAllFeedBacks() {
     )
 }
 
-function Unban(name, idi) {
-    var token = $("#token").val();
-    document.getElementById(idi).innerHTML = '<span style="color: forestgreen">Available</span>;';
-    $.post("changeAccesss?_csrf=" + token, {
-            username: name,
-            status: true
-        }
-    )
+var globalPage = 1;
+
+
+var globalJson
+function setJson(json) {
+    globalJson = json
 
 }
-function Upload() {
-    //alert("vhod");
-    var $form = $(this);
-    var File1 = document.getElementById("File1");
-    var tip = File1.value.toString();
+function getMaxPageToPost() {
+    var t = JSON.parse(globalJson)
+    var post = t['posts']
+    var idposts = post['idPosts']
+    var maxPage = Math.floor(idposts.length / 4)
 
+    if ((idposts.length / 4) != maxPage) {
+        maxPage++;
 
-    var tipstr1 = tip;
-    var from1 = tipstr1.search('fakepath');
-    var to1 = tipstr1.length;
-    var tipstr2 = tipstr1.substring(from1, to1);
-
-
-    var strstr1 = tipstr2;
-    var from2 = 9;
-    var to2 = strstr1.length;
-    var strstr2 = strstr1.substring(from2, to2);
-    var token = $("#token").val();//DO NOT OPEN!!!
-    $.post("savefiles?_csrf=" + token,
-        $form.serialize()
-        ,
-        function (data) {
-
-            $("#NEWimage_container")
-
-                .append('<img style="margin: 10px" width="100px" height="100px" src="\\resources\\images\\' + strstr2 + '"/>')
-            SelectImg()
-        }
-    )
-}
-
-
-function preview(json, page) {
-
-    if (page > 1) {
-        page--;
-        writeImage(json, null, page)
     }
+    return maxPage
 
+
+}
+function getMaxPageToGallery() {
+    var t = JSON.parse(globalJson)
+
+    var galleries = t['galleries']
+    var galleryData = galleries['galleryData']
+    var idGalleries = galleries['idGalleries']
+    var maxPage = Math.floor(idGalleries.length / 4)
+
+    if ((idGalleries.length / 4) != maxPage) {
+        maxPage++;
+
+    }
+    return maxPage
+
+
+}
+function nextPostPage(adm) {
+
+    if (globalPage <= getMaxPageToPost()) {
+        globalPage++;
+        getPosts(globalPage)
+        if (adm == true)
+            getDeleteButtonsToPosts(globalPage)
+    }
+}
+function nextGalleryPage(adm) {
+
+    if (globalPage <= getMaxPageToGallery()) {
+        globalPage++;
+        getGalleries(globalPage)
+        if (adm == true)
+            getDeleteButtonsToGalleries(globalPage)
+    }
 }

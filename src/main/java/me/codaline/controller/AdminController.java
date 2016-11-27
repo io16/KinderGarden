@@ -5,6 +5,7 @@ import me.codaline.model.Gallery;
 import me.codaline.service.*;
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,7 +46,7 @@ public class AdminController {
             try {
 
 
-                imageService.safeImage((FileInputStream) item.getInputStream(), item.getSize(), item.getOriginalFilename());
+                imageService.safeImage(item.getBytes(), request);
 
             } catch (IOException e) {
 
@@ -53,17 +54,11 @@ public class AdminController {
 
             }
         });
-        modelMap.addAttribute("images", imageService.getImages());
+        modelMap.addAttribute("images", imageService.getImages(null));
         return "adminAddNews";
     }
 
 
-    @RequestMapping(value = "/admin")
-    String adminPage(ModelMap modelMap) {
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        return "adminPage";
-    }
 
     @RequestMapping(value = "/adminFeedBack")
     String adminFeedBackPage(ModelMap modelMap) {
@@ -97,11 +92,15 @@ public class AdminController {
     String addPost(ModelMap modelMap, String title, String context, int idImage) {
 
         postService.createPost(title, context, idImage);
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("posts", postService.getPosts());
-
-        return "adminAddNews";
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(postService.getIdImages()));
+            jsonObject.put("posts", postService.getPosts());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("posts", jsonObject);
+        return "adminNews";
     }
 
 
@@ -109,9 +108,14 @@ public class AdminController {
     String addPostView(ModelMap modelMap) {
 
 
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("posts", postService.getPosts());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(null));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("images", jsonObject);
 
         return "adminAddNews";
     }
@@ -120,9 +124,15 @@ public class AdminController {
     @RequestMapping(value = "/adminGetPosts", method = RequestMethod.GET)
     String getPosts(ModelMap modelMap) {
 
-        modelMap.addAttribute("images", imageService.getImages(postService.getIdImages()));
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("posts", postService.getPosts());
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(postService.getIdImages()));
+            jsonObject.put("posts", postService.getPosts());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("posts", jsonObject);
 
 
         return "adminNews";
@@ -132,10 +142,14 @@ public class AdminController {
     String deletePosts(ModelMap modelMap, int idPost) {
 
         postService.deletePost(idPost);
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("posts", postService.getPosts());
-
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(postService.getIdImages()));
+            jsonObject.put("posts", postService.getPosts());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("posts", jsonObject);
         return "adminNews";
     }
 
@@ -143,8 +157,15 @@ public class AdminController {
     String adminPhoto(ModelMap modelMap, HttpServletRequest request) {
 
 
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
+        JSONObject mainObject = new JSONObject();
+        try {
+            mainObject.put("images", imageService.getImages(null));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("images", mainObject);
+
 
 
         return "adminPhoto";
@@ -156,8 +177,14 @@ public class AdminController {
 
         imageService.deleteImageById(idPhoto);
         imagesAndGalleriesService.deleteImage(idPhoto);
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(null));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("images", jsonObject);
 
 
         return "adminPhoto";
@@ -175,10 +202,14 @@ public class AdminController {
             e.printStackTrace();
         }
 
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(null));
 
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("images", jsonObject);
 
         return "adminPhoto";
     }
@@ -186,12 +217,34 @@ public class AdminController {
     @RequestMapping(value = "/adminGallery", method = RequestMethod.GET)
     String getGallery(ModelMap modelMap) {
 
-        modelMap.addAttribute("galleries", galleryService.getGalleries());
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("imagesAndGalleries", imagesAndGalleriesService.getImagesAndGalleries());
-//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+
+        JSONObject mainObject = new JSONObject();
+
+        try {
+            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
+            mainObject.put("galleries", galleryService.getGalleries());
+            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("galleries", mainObject);
         return "adminGallery";
+    }
+
+    @RequestMapping(value = "/adminAddGallery", method = RequestMethod.GET)
+    String addGallery(ModelMap modelMap) {
+
+
+        JSONObject mainObject = new JSONObject();
+
+        try {
+            mainObject.put("images", imageService.getImages(null));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("images", mainObject);
+        return "adminAddGallery";
     }
 
     @RequestMapping(value = "/adminCreateGallery", method = RequestMethod.POST)
@@ -199,11 +252,17 @@ public class AdminController {
 
         Gallery gallery = galleryService.createGallery(title, context);
         imagesAndGalleriesService.addImages(idPhotos, gallery.getId());
-        modelMap.addAttribute("galleries", galleryService.getGalleries());
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
-        modelMap.addAttribute("imagesAndGalleries", imagesAndGalleriesService.getImagesAndGalleries());
-//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+        JSONObject mainObject = new JSONObject();
+
+        try {
+            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
+            mainObject.put("galleries", galleryService.getGalleries());
+            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("galleries", mainObject);
+
 
         return "adminGallery";
     }
@@ -213,11 +272,16 @@ public class AdminController {
 
         galleryService.deleteGalleryById(idGallery);
         imagesAndGalleriesService.deleteGallery(idGallery);
-        modelMap.addAttribute("galleries", galleryService.getGalleries());
-        modelMap.addAttribute("images", imageService.getImages());
-        modelMap.addAttribute("idImages", imageService.getIdImages());
+        JSONObject mainObject = new JSONObject();
 
-//        modelMap.addAttribute("idGalleriesAndImages", galleryService.getIdImagesToGalleries());
+        try {
+            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
+            mainObject.put("galleries", galleryService.getGalleries());
+            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("galleries", mainObject);
 
         return "adminGallery";
     }

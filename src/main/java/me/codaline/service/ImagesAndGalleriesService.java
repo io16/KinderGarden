@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,64 +23,57 @@ public class ImagesAndGalleriesService {
 
     public JSONObject getImagesAndGalleries() {
 
-        JSONArray idImageArray = new JSONArray();
-        JSONObject idGalleryImages = new JSONObject();
-        JSONArray idGalleries = new JSONArray();
-        JSONObject mainObj = new JSONObject();
+        JSONObject mainObject = new JSONObject();
+        JSONObject idGalleryAndImages = new JSONObject();
 
-        List<ImagesAndGalleries> list = imagesAndGalleriesDao.getImagesAndGalleries();
+        JSONArray arrayImages = new JSONArray();
+        JSONArray arrayGalleries = new JSONArray();
 
-        list.forEach(action -> {
-
-            try {
-
-                if (idGalleries.length() == 0) {
+        List<ImagesAndGalleries> iag = imagesAndGalleriesDao.getImagesAndGalleries();
 
 
-                    idGalleries.put(action.getIdGallery());
-                } else if ((Integer) idGalleries.get(idGalleries.length() - 1) != action.getIdGallery()) {
-                    idGalleries.put(action.getIdGallery());
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-        });
-        for (int i = 0; i < idGalleries.length(); i++) {
-
-
-            idImageArray = new JSONArray();
-            for (ImagesAndGalleries item : list) {
-                try {
-                    if (item.getIdGallery() == (Integer) idGalleries.get(i))
-                        idImageArray.put(item.getIdImage());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            try {
-                idGalleryImages.put(String.valueOf(idGalleries.get(i)), idImageArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        JSONArray jsonArrayData = new JSONArray();
-
-        jsonArrayData.put(idImageArray);
-
+        int idGallery = 0;
         try {
-            mainObj.put("idGalleries", idGalleries);
-            mainObj.put("Data", idGalleryImages);
+            for (ImagesAndGalleries gallery : iag) {
+
+                if (arrayGalleries.length() == 0) {  //set first id
+                    arrayGalleries.put(gallery.getIdGallery());
+                    idGallery = gallery.getIdGallery();
+                }
+
+
+                if (idGallery != gallery.getIdGallery()) {
+
+                    idGalleryAndImages.put(String.valueOf(idGallery), arrayImages);
+                    idGallery = gallery.getIdGallery();
+                    arrayGalleries.put(gallery.getIdGallery());
+
+                    arrayImages = new JSONArray();
+
+                }
+                arrayImages.put(gallery.getIdImage());
+            }
+
+            idGalleryAndImages.put(String.valueOf(idGallery), arrayImages);
+
+
+            mainObject.put("galleryIds", arrayGalleries);
+            mainObject.put("data", idGalleryAndImages);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        return mainObject;
+    }
 
-        return mainObj;
+    public List<Integer> getIdImages() {
+        ArrayList<Integer> imageIds = new ArrayList<>();
+        imagesAndGalleriesDao.getImagesAndGalleries().forEach(item -> {
+            imageIds.add(item.getIdImage());
+        });
+
+        return imageIds;
     }
 
     public void deleteImages(JSONArray imageIds) {

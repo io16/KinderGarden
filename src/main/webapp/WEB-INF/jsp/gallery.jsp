@@ -16,10 +16,23 @@
 		<link href="../../resources/css/style.css" type="text/css" rel="stylesheet" media="screen">
 		<link href="../../resources/css/font-awesome.css" type="text/css" rel="stylesheet" media="screen">
 
+		<script src="../../resources/js/main.js"></script>
+		<script src="../../resources/js/jquery.min.js"></script>
 		<script src="../../resources/js/modernizr.js"></script>
 		<script src="../../resources/js/respond.js"></script>
 	</head>
 	<body>
+	<script type="text/javascript">
+
+
+		$(document).ready(function () {
+			setJson('${galleries}')
+			getGalleries(1)
+
+
+
+		})
+				</script>
 		<div class="container" id="wrapper">
 
 			<!-- header -->
@@ -60,7 +73,12 @@
 					<h1>Галерея</h1>
 				</div>
 
-				<div class="content-bg">
+				<div    class="content-bg" id="div_gallery_context">
+
+				</div>
+				<a class="button green pull-right" id="showButton" onclick="nextGalleryPage()"><span>&#xf138;</span>Показати ще </a>
+
+					<div class="content-bg">
 					<h2 class="green-title"><span class="fa"></span> Фото-альбом №1</h2>
 					<p>Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  </p>
 					<div class="gallery">
@@ -71,11 +89,11 @@
 						<a href="images/placeholders/blue-big.png" rel="prettyphoto[gallery1]"><img src="../../resources/images/placeholders/blue.png" alt="" /></a>
 						<a href="images/placeholders/orange-big.png" rel="prettyphoto[gallery1]"><img src="../../resources/images/placeholders/orange.png" alt="" /></a>
 						<a href="images/placeholders/yellow-big.png" rel="prettyphoto[gallery1]"><img src="../../resources/images/placeholders/yellow.png" alt="" /></a>
-						<a href="images/placeholders/green-big.png" rel="prettyphoto[gallery1]"><img src="../../resources/images/placeholders/green.png" alt="" /></a>
+						<a href="images/placeholders/green-big.png" rel="prettyphoto[gallery1]"><img  src="../../resources/images/placeholders/green.png" alt="" /></a>
 						<div class="clearfix"></div>
 					</div>
 
-					<div class="separator"></div>
+						<div class="separator"></div>
 
 					<h2 class="green-title"><span class="fa"></span> Фото-альбом №2</h2>
 					<p>Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  </p>

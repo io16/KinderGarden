@@ -101,6 +101,7 @@
 
                     <li><a href="adminPhoto"> Photos</a></li>
                     <li><a href="adminGallery"> Albums</a></li>
+                    <li><a href="adminAddGallery"> Add Albums</a></li>
                     <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>

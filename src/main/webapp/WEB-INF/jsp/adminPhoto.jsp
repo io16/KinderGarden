@@ -42,7 +42,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
     $(document).ready(function () {
-        writeImage('${images}')
+        setJson('${images}')
+        writeImage()
         $('#image_container img').click(function () {
             //remove border on any images that might be selected
 //                        $('#image_container img').removeClass("img_border")
@@ -109,13 +110,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
         <div>
             You Have ${fn:length(idImages)} photos
             <div id="image_container">
-            <c:forEach var="img" items="${idImages}" varStatus="status">
+            <%--<c:forEach var="img" items="${idImages}" varStatus="status">--%>
 
-                <img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>
+                <%--<img style="margin: 10px" width="100px" height="100px" id="${img}" src=""/>--%>
 
 
-                <button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>
-            </c:forEach>
+                <%--<button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>--%>
+            <%--</c:forEach>--%>
                 <input id="image_from_list" name="idImages" type="text" value=""/><br/>
                 </div>
            <button class="button"  onclick="DeleteSelectedPhotos()">Delete Selected</button>
@@ -149,7 +150,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#">Blog<c:if test="${ac == true}">${user.firstName }</c:if> </a></h1>
+        <h1 id="logo"><a href="#"> </a></h1>
 
         <!-- Nav -->
         <nav id="nav">
@@ -172,6 +173,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                     <li><a href="adminPhoto"> Photos</a></li>
                     <li><a href="adminGallery"> Albums</a></li>
+                    <li><a href="adminAddGallery"> Add Albums</a></li>
                     <li><a href="adminFeedBack"> FeedBacks</a></li>
                     <li><a href="http://localhost:8080/user/Update?id=0"> Main changes</a></li>
                     <li><a href="http://localhost:8080/logout">Log Out</a></li>

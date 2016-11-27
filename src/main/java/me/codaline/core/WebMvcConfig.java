@@ -34,6 +34,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     }
 
 
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer){
         configurer.enable();
@@ -47,7 +48,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/getMail/resources/**").addResourceLocations("/resources/");
 
 
-        //registry.addResourceHandler("/ROOT/resources/**").addResourceLocations("/resources/images/");
+        registry.addResourceHandler("src/main/webapp/resources/images/new").addResourceLocations("resources/images/new");
 
     }
 

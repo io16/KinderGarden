@@ -3,7 +3,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-
 <!DOCTYPE HTML>
 <!--
 Striped by HTML5 UP
@@ -38,21 +37,60 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 -->
 <body class="left-sidebar">
 
-<script language="javascript" type="text/javascript"
-        src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+
 <script type="text/javascript">
 
 
     $(document).ready(function () {
-        setJson('${posts}')
-        getPosts(1)
-        getDeleteButtonsToPosts(1)
 
-            })
+        setJson('${images}')
+        writeImage()
+        $('#image_container img').click(function () {
+            //remove border on any images that might be selected
+//                        $('#image_container img').removeClass("img_border")
+            $('#NEWimage_container img').removeClass("img_border")
+            if (this.classList.contains("img_border")) {
+                var s = $('#image_from_list').val();
+                var toRemove = event.target.id;
+                this.classList.remove("img_border");
+//                            console.log(s);
+//                           s= s.substring(s.indexOf(toRemove),s.indexOf(toRemove +toRemove.length) )
+//                            console.log(s);
+                var to = s.indexOf(toRemove) + toRemove.length + 1;
+
+//                            console.log(to);
+
+//                            console.log(s.substring(0,s.indexOf(toRemove.toString()))+ s.substring(to))
+                s = s.substring(0, s.indexOf(toRemove.toString())) + s.substring(to)
+                $('#image_from_list').val(s)
+//                            console.log(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to))));
+//                            console.log(s.substring(s.indexOf(toRemove.toString(), s.indexOf(toRemove.toString(to)))));
+            } else {
+                // set the img-source as value of image_from_list
+                var s = $('#image_from_list').val();
+                $('#image_from_list').val($(this).attr("id") + "," + s);
+                $('#data_value').val($(this).attr("id"));
+                // $('#data_value').val( $(this).data("options").color );
+
+                //add border to a clicked image
+                $(this).addClass("img_border")
+            }
+
+        });
+
+
+    })
+
+
 </script>
+<style>
+    .img_border {
+        border: 4px solid blue;
+    }
+</style>
 <!-- Wrapper -->
 <div id="wrapper">
-    <c:set var="ac" scope="session" value="${access}"/>
+
 
     <!-- Content -->
     <div id="content">
@@ -61,18 +99,34 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
 
-            <div id="NEWimage_container"></div>
 
 
         </div>
-        <div id="div_post_context">
-            Your Posts:
+        <div>
+            Create new Album
+            <form>
+            <input type="text" id="titleGallery" name="title" placeholder="Title" required ><br/>
 
+            <textarea id="contextGallery" class="text-style1" rows="10" cols="70"
+                      STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
+                      required></textarea>
+            <input id="image_from_list" name="idImages" type="text" value=""/><br/>
+
+            <div id="image_container">
+
+
+
+            </div>
+            <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
+            <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
+            <input type="button" value="Add" onclick="AddImagesToGallery()" align="right">
 
             <input  id="token" type="hidden" name="${_csrf.parameterName}"
                     value="${_csrf.token}" />
+
+
+            </form>
         </div>
-        <a class="button green pull-right" id="showButton" onclick="nextPostPage(true)"><span>&#xf138;</span>Показати ще </a>
     </div>
 
 
@@ -81,7 +135,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#">Blog<c:if test="${ac == true}">${user.firstName }</c:if> </a></h1>
+        <h1 id="logo"><a href="#"> </a></h1>
 
         <!-- Nav -->
         <nav id="nav">
@@ -96,6 +150,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
                 <sec:authorize access="hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')">
+
 
 
                     <li><a href="adminGetPosts"> News</a></li>
