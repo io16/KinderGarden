@@ -79,12 +79,10 @@ function getPosts(page) {
         var tempIdImage = postData[tempPostData];
 
 
-        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"><a href="blog-post.html">' + tempIdImage[0] + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempIdImage[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempIdImage[3]] + '"/> <p>' + tempIdImage[1] + '</p> <a class="button blue"><span>&#xf138;</span>Show</a> <div class="separator"></div> </div> ');
+        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"><a href="blog-post.html">' + tempIdImage[0] + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempIdImage[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempIdImage[3]] + '"/> <p>' + tempIdImage[1] + '</p> <a class="button blue"   href="blog-post' + tempPostData + '"><span>&#xf138;</span>Show</a> <div class="separator"></div> </div> ');
 
 
-            $('#div_post_context').append('<div class="clearfix"></div>')
-
-
+        $('#div_post_context').append('<div class="clearfix"></div>')
 
 
     }
@@ -132,9 +130,6 @@ function getGalleries(page) {
             $('#div_gallery_context').append('<div class="clearfix"></div>')
 
         }
-
-
-
 
 
     }

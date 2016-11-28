@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <!--[if IE 8 ]> <html class="ie8 no-js"> <![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!--> <html class="not-ie no-js">  <!--<![endif]-->
@@ -18,8 +19,20 @@
 
 		<script src="../../resources/js/modernizr.js"></script>
 		<script src="../../resources/js/respond.js"></script>
+		<script src="../../resources/js/jquery.min.js"></script>
+		<script src="../../resources/js/main.js"></script>
 	</head>
 	<body>
+	<script type="text/javascript">
+
+
+		$(document).ready(function () {
+
+			setJson('${posts}')
+			getPosts('1')
+
+		})
+	</script>
 		<div class="container" id="wrapper">
 
 			<!-- header -->
@@ -54,6 +67,8 @@
 			<!-- end header -->
 
 			<!-- page content area -->
+
+
 			<section id="content" class="col-lg-7 col-md-8 col-sm-12">
 
 				<div class="cloud">
@@ -61,6 +76,7 @@
 				</div>
 
 				<div class="content-bg">
+					<div  class="content-bg" id="div_post_context"> </div>
 					<h2 class="entry-title post-title">Заголовок</h2>
 					<p>Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....</p>
 					<img src="../../resources/images/placeholders/green-mid.png" alt="" class="img-border" />
@@ -82,7 +98,7 @@
 					<div class="clearfix"><br /></div>
 					<div class="col-12">
 						<a class="button green pull-left"><span>&#xf137;</span>Попередня новина</a>
-						<a class="button green pull-right"><span>&#xf138;</span>Наступна новина</a>
+						<a  id="showButton" class="button green pull-right"><span>&#xf138;</span>Наступна новина</a>
 					</div>
 					<div class="clearfix"></div>
 				</div>

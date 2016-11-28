@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .and().logout().logoutSuccessUrl("/login?logout")
-                .and().formLogin().defaultSuccessUrl("/sccss")
+                .and().formLogin().defaultSuccessUrl("/adminFeedBack")
                 .and().csrf();
 //                .and().exceptionHandling().accessDeniedPage("/403").and().headers().frameOptions().disable();
 

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 public class MyController {
@@ -39,23 +40,23 @@ public class MyController {
         return "index";
     }
 
-    @RequestMapping(value = "/sccss")
-    public ModelAndView defaul() {
-//        String date = new Date(System.currentTimeMillis()).toString();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetail = null;
-//        if (!(auth instanceof AnonymousAuthenticationToken)) {
-//            userDetail = (UserDetails) auth.getPrincipal();
-//            service.setAction(userDetail.getUsername(), "login in ", null, date);
-//            userService.upActivity(userDetail.getUsername());
-//            if(service.getPosts(userDetail.getUsername()).size()<1)
-//            {
-//                service.createPost("Your  post ","Edit this post or add new","","\\resources\\images\\kitchen_adventurer_cheesecake_brownie.jpg ",userDetail.getUsername());
-//
-//            }
-//        }
-        return new ModelAndView("redirect:/adminFeedBack");
-    }
+//    @RequestMapping(value = "/sccss")
+//    public ModelAndView defaul() {
+////        String date = new Date(System.currentTimeMillis()).toString();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        UserDetails userDetail = null;
+////        if (!(auth instanceof AnonymousAuthenticationToken)) {
+////            userDetail = (UserDetails) auth.getPrincipal();
+////            service.setAction(userDetail.getUsername(), "login in ", null, date);
+////            userService.upActivity(userDetail.getUsername());
+////            if(service.getPosts(userDetail.getUsername()).size()<1)
+////            {
+////                service.createPost("Your  post ","Edit this post or add new","","\\resources\\images\\kitchen_adventurer_cheesecake_brownie.jpg ",userDetail.getUsername());
+////
+////            }
+////        }
+//        return new ModelAndView("redirect:/adminFeedBack");
+//    }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -113,8 +114,8 @@ public class MyController {
         JSONObject mainObject = new JSONObject();
 
         try {
-            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
             mainObject.put("galleries", galleryService.getGalleries());
+            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
             mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -128,12 +129,27 @@ public class MyController {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImages()));
-            jsonObject.put("posts", postService.getPosts());
+            jsonObject.put("posts", postService.getPosts(null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         modelMap.addAttribute("posts", jsonObject);
         return "blog";
+    }
+
+    @RequestMapping("/blog-post{idPost}")
+    String blogPostPage(ModelMap modelMap, @PathVariable  int idPost) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("images", imageService.getImages(postService.getIdImageByIdPost(idPost)));
+            ArrayList<Integer> idList = new ArrayList<>();
+            idList.add(idPost);
+            jsonObject.put("posts", postService.getPosts(idList));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        modelMap.addAttribute("posts", jsonObject);
+        return "blog-post";
     }
 
     @RequestMapping("/contact.html")
@@ -145,12 +161,6 @@ public class MyController {
     String registration() {
         return "registration";
     }
-
-//
-
-
-
-
 
 
 }

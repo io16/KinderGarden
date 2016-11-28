@@ -2,6 +2,7 @@ package me.codaline.service;
 
 import me.codaline.dao.PostDao;
 import me.codaline.model.Post;
+import org.jboss.logging.annotations.Pos;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,7 +41,8 @@ public class PostService {
 
     }
 
-    public JSONObject getPosts() {
+
+    public JSONObject getPosts(List<Integer> idPosts) {
 
         JSONObject mainObject = new JSONObject();
         JSONObject dataPosts = new JSONObject();
@@ -53,13 +55,27 @@ public class PostService {
         for (Post post : posts) {
             jsonArrayData = new JSONArray();
 
-            jsonArrayIds.put(post.getId());
+            if (idPosts != null) {
+                if (idPosts.indexOf(post.getId()) != -1) {
+                    jsonArrayIds.put(post.getId());
 
+                    jsonArrayData.put(post.getContext());
+                    jsonArrayData.put(post.getTitle());
+                    jsonArrayData.put(post.getDate());
+                    jsonArrayData.put(post.getIdImage());
+                }
+            } else
 
-            jsonArrayData.put(post.getTitle());
-            jsonArrayData.put(post.getContext());
-            jsonArrayData.put(post.getDate());
-            jsonArrayData.put(post.getIdImage());
+            {
+                jsonArrayIds.put(post.getId());
+
+                jsonArrayData.put(post.getTitle());
+                jsonArrayData.put(post.getContext());
+                jsonArrayData.put(post.getDate());
+                jsonArrayData.put(post.getIdImage());
+
+            }
+
 
             try {
                 dataPosts.put(String.valueOf(post.getId()), jsonArrayData);
@@ -92,5 +108,12 @@ public class PostService {
             idList.add(i.getIdImage());
         });
         return idList;
+    }
+
+    public List<Integer> getIdImageByIdPost(int idPost) {
+        ArrayList<Integer> idList = new ArrayList<>();
+        idList.add(postDao.getPostById(idPost).getIdImage());
+        return idList;
+
     }
 }

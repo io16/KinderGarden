@@ -59,7 +59,6 @@ public class AdminController {
     }
 
 
-
     @RequestMapping(value = "/adminFeedBack")
     String adminFeedBackPage(ModelMap modelMap) {
         modelMap.addAttribute("feedBacks", feedBackService.getFeedBacks());
@@ -95,7 +94,7 @@ public class AdminController {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImages()));
-            jsonObject.put("posts", postService.getPosts());
+            jsonObject.put("posts", postService.getPosts(null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -128,7 +127,7 @@ public class AdminController {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImages()));
-            jsonObject.put("posts", postService.getPosts());
+            jsonObject.put("posts", postService.getPosts(null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -145,7 +144,7 @@ public class AdminController {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImages()));
-            jsonObject.put("posts", postService.getPosts());
+            jsonObject.put("posts", postService.getPosts(null));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -165,7 +164,6 @@ public class AdminController {
             e.printStackTrace();
         }
         modelMap.addAttribute("images", mainObject);
-
 
 
         return "adminPhoto";
@@ -214,10 +212,8 @@ public class AdminController {
         return "adminPhoto";
     }
 
-    @RequestMapping(value = "/adminGallery", method = RequestMethod.GET)
-    String getGallery(ModelMap modelMap) {
 
-
+    public JSONObject getGalleries() {
         JSONObject mainObject = new JSONObject();
 
         try {
@@ -227,7 +223,15 @@ public class AdminController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        modelMap.addAttribute("galleries", mainObject);
+        return mainObject;
+
+    }
+
+    @RequestMapping(value = "/adminGallery", method = RequestMethod.GET)
+    String getGallery(ModelMap modelMap) {
+
+
+        modelMap.addAttribute("galleries", getGalleries());
         return "adminGallery";
     }
 
@@ -252,16 +256,8 @@ public class AdminController {
 
         Gallery gallery = galleryService.createGallery(title, context);
         imagesAndGalleriesService.addImages(idPhotos, gallery.getId());
-        JSONObject mainObject = new JSONObject();
 
-        try {
-            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
-            mainObject.put("galleries", galleryService.getGalleries());
-            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        modelMap.addAttribute("galleries", mainObject);
+        modelMap.addAttribute("galleries", getGalleries());
 
 
         return "adminGallery";
@@ -272,16 +268,8 @@ public class AdminController {
 
         galleryService.deleteGalleryById(idGallery);
         imagesAndGalleriesService.deleteGallery(idGallery);
-        JSONObject mainObject = new JSONObject();
 
-        try {
-            mainObject.put("images", imageService.getImages(imagesAndGalleriesService.getIdImages()));
-            mainObject.put("galleries", galleryService.getGalleries());
-            mainObject.put("galleryAndImageIds", imagesAndGalleriesService.getImagesAndGalleries());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        modelMap.addAttribute("galleries", mainObject);
+        modelMap.addAttribute("galleries", getGalleries());
 
         return "adminGallery";
     }
