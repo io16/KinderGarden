@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -125,7 +126,7 @@ public class MyController {
     }
 
     @RequestMapping("/blog.html")
-    String blogPage(ModelMap modelMap) {
+    String blogPage(ModelMap modelMap,@RequestParam(value = "idPost", required = false) String idPost) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImages()));
@@ -134,11 +135,22 @@ public class MyController {
             e.printStackTrace();
         }
         modelMap.addAttribute("posts", jsonObject);
+
+        if (idPost == null) {
+            modelMap.addAttribute("idPost", "null");
+        }else  {
+            modelMap.addAttribute("idPost", idPost);
+
+        }
+
         return "blog";
+
+
     }
 
+
     @RequestMapping("/blog-post{idPost}")
-    String blogPostPage(ModelMap modelMap, @PathVariable  int idPost) {
+    String blogPostPage(ModelMap modelMap, @PathVariable int idPost) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("images", imageService.getImages(postService.getIdImageByIdPost(idPost)));

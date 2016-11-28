@@ -1102,7 +1102,8 @@ div.pp_default .pp_details {
 .img-border	{
 	border: 5px solid #fff7b1;
 	margin: 0 7px 7px 0;
-	float: left;
+
+    width: 100%;
 }
 
 .separator	{

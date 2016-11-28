@@ -29,7 +29,7 @@
 		$(document).ready(function () {
 
 			setJson('${posts}')
-			getPosts('1')
+			getPost()
 
 		})
 	</script>

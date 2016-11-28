@@ -34,7 +34,9 @@
     $(document).ready(function () {
 
         setJson('${posts}')
-        getPosts('1')
+        getPosts('1','${idPost}')
+        if(${idPost}!= null)
+            scrollTo('${idPost}')
 
     })
 </script>

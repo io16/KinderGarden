@@ -104,6 +104,9 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
             </div>
 
+            <input  id="token" type="hidden" name="${_csrf.parameterName}"
+                    value="${_csrf.token}" />
+
             <a class="button green pull-right" id="showButton" onclick="nextGalleryPage(true)"><span>&#xf138;</span>Показати ще </a>
 
 
