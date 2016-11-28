@@ -33,11 +33,11 @@ public class ImageService {
     ImageDao imageDao;
     private LocalDateTime today;
 
-    public void safeImage(byte[] bytes, HttpServletRequest request) {
+    public Image safeImage(byte[] bytes, HttpServletRequest request) {
 
         today = LocalDateTime.of(LocalDate.now(), LocalTime.now());
         Image image = new Image();
-        LocalDate date =  LocalDate.now();
+        LocalDate date = LocalDate.now();
 
         image.setDate(String.valueOf(date));
 
@@ -46,7 +46,7 @@ public class ImageService {
             //"/home/igor/IdeaProjects/KinderGarten/src/main/webapp/resources/images/"
             ServletContext context = request.getSession().getServletContext();
             int idImage = today.hashCode();
-            if (context.getRealPath("").indexOf("/") >= 0) {
+            if (context.getRealPath("").contains("/")) {
                 String saveDirectory = context.getRealPath("") + "/resources/images/new/";
 
 
@@ -61,12 +61,13 @@ public class ImageService {
                 path = "resources\\images\\new\\" + idImage + ".png";
                 image.setPath(path);
             }
-            imageDao.saveImage(image);
+            image = imageDao.saveImage(image);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        return image;
 
     }
 

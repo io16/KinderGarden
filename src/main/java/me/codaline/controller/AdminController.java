@@ -55,7 +55,7 @@ public class AdminController {
             }
         });
         modelMap.addAttribute("images", imageService.getImages(null));
-        return "adminAddNews";
+        return "redirect:adminPhoto";
     }
 
 

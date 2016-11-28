@@ -23,14 +23,14 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
-    ModelAndView saveUser(ModelMap modelMap, String firstName, String userName, String email, String pass
-    ) {
-        userService.createUser(userName, pass, email, firstName);
-
-
-        return new ModelAndView("redirect:/welldone");
-    }
+//    @RequestMapping(value = "/createUser", method = RequestMethod.POST)
+//    ModelAndView saveUser(ModelMap modelMap, String firstName, String userName, String email, String pass
+//    ) {
+//        userService.createUser(userName, pass, email, firstName);
+//
+//
+//        return new ModelAndView("redirect:/welldone");
+//    }
 
     @RequestMapping(value = "/addFeedBack", method = RequestMethod.POST)
     String addFeedBack(ModelMap modelMap, String text, String email, String name) {
