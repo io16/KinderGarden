@@ -51,7 +51,7 @@ function getDeleteButtonsToGalleries(page) {
     }
 }
 
-function getPosts(page,idPost) {
+function getPosts(page, idPost) {
 
 
     var t = JSON.parse(globalJson)
@@ -73,14 +73,13 @@ function getPosts(page,idPost) {
     var counter = 0
 
 
-
     var countPost = 3
 
     if (idPost != null) {
 
         countPost = idPosts.indexOf(parseInt(idPost))
-        console.log( countPost)
-        if(countPost<3) {
+        console.log(countPost)
+        if (countPost < 3) {
             countPost = 3
         }
     }
@@ -90,11 +89,22 @@ function getPosts(page,idPost) {
 
 
         var tempPostData = idPosts[i]
-        var tempIdImage = postData[tempPostData];
+        var tempPostDataId = postData[tempPostData];
+        var context = tempPostDataId[1]
+        if (context.length > 150) {
+            context = context.substring(0, 150)
+            context = context.substring(0, context.lastIndexOf(" ")) + "..."
+        }
+        var title = tempPostDataId[0]
+        if (title.length > 30) {
+            title = tempPostDataId[0].substring(0, 30)
+            title = title.substring(0, context.lastIndexOf(" ")) + "..."
+        }
 
 
-        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"><a name="' + tempPostData + '">' + tempIdImage[0] + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempIdImage[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempIdImage[3]] + '"/> <p>' + tempIdImage[1] + '</p> <a class="button blue"   href="blog-post' + tempPostData + '"><span>&#xf138;</span>Show</a> <div class="separator"></div> </div> ');
+        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" > <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"><a name="' + tempPostData + '">' + title + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempPostDataId[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempPostDataId[3]] + '"/> <p>' + context + '</p> <a class="button blue"   href="blog-post' + tempPostData + '"><span>&#xf138;</span>Show</a> <div class="separator"></div> </div> ');
 
+        if (i%2==1)
 
         $('#div_post_context').append('<div class="clearfix"></div>')
 
@@ -120,15 +130,13 @@ function getPost() {
     var imagesSRC = data [1]
 
 
-        document.getElementById('showButton').style.display = 'none';
+    document.getElementById('showButton').style.display = 'none';
 
-        var tempPostData = idPosts[0]
-        var tempIdImage = postData[tempPostData];
-
-
-            $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempIdImage[2] + '</span></a> </div>     <img   class="img-border"  src="' + imagesSRC[tempIdImage[3]] + '"/> <p>' + tempIdImage[1] + '</p> <a class="button blue"  href="blog.html?idPost=' + tempPostData + '" >Повернутись</a> ');
+    var tempPostData = idPosts[0]
+    var tempData = postData[tempPostData];
 
 
+    $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempData[2] + '</span></a> </div>   ' + tempData[1] + ' <a href="' + imagesSRC[tempData[3]] + '" rel="prettyphoto[post' + tempPostData + ']"> <img   class="img-border"  src="' + imagesSRC[tempData[3]] + '"/> </a><p>' + tempData[0] + '</p> <a class="button blue"  href="blog.html?idPost=' + tempPostData + '" >Повернутись</a> ');
 
 
 }

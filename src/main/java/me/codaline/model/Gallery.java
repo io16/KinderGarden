@@ -1,8 +1,8 @@
 package me.codaline.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,10 +15,11 @@ public class Gallery {
     @Id
     @GeneratedValue
     private int id;
+    @Column(name = "title",columnDefinition="TEXT")
     private String title;
+    @Column(name = "context" ,columnDefinition="TEXT")
     private String context;
     private String date;
-
 
 
     public int getId() {
@@ -29,6 +30,7 @@ public class Gallery {
         this.id = id;
     }
 
+
     public String getTitle() {
         return title;
     }
@@ -36,6 +38,7 @@ public class Gallery {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
     public String getContext() {
         return context;
@@ -52,8 +55,6 @@ public class Gallery {
     public void setDate(String date) {
         this.date = date;
     }
-
-
 
 
 }

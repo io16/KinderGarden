@@ -200,7 +200,6 @@ A:hover {TEXT-DECORATION: underline;}
 			form select:focus,
 			form textarea:focus
 			{
-				box-shadow: 0px 0px 2px 2px #c94663;
 			}
 
 			form ::-webkit-input-placeholder
@@ -329,7 +328,6 @@ A:hover {TEXT-DECORATION: underline;}
 			-o-transition: background-color .25s ease-in-out, color .25s ease-in-out;
 			-ms-transition: background-color .25s ease-in-out, color .25s ease-in-out;
 			transition: background-color .25s ease-in-out, color .25s ease-in-out;
-			text-shadow: -1px -1px 0px rgba(0,0,0,0.5);
 		}
 
 			input[type="button"]:disabled,
@@ -446,7 +444,6 @@ A:hover {TEXT-DECORATION: underline;}
 					-o-transition: background-color .25s ease-in-out;
 					-ms-transition: background-color .25s ease-in-out;
 					transition: background-color .25s ease-in-out;
-					box-shadow: inset 0 0.075em 0.25em 0 rgba(0,0,0,0.1);
 				}
 			
 				.pagination .pages a:hover
@@ -459,7 +456,6 @@ A:hover {TEXT-DECORATION: underline;}
 					background-color: #364050;
 					color: #fff;
 					box-shadow: none;
-					text-shadow: -1px -1px 0px rgba(0,0,0,0.5);
 				}
 
 	/* Box */
@@ -687,6 +683,18 @@ A:hover {TEXT-DECORATION: underline;}
 	#wrapper
 	{
 		position: relative;
+		background: url(../images/linedpaper.png) repeat #fffdf0;
+		background-image: url(../images/linedpaper.png);
+		background-position-x: initial;
+		background-position-y: initial;
+		background-size: initial;
+		background-repeat-x: repeat;
+		background-repeat-y: repeat;
+		background-attachment: initial;
+		background-origin: initial;
+		background-clip: initial;
+		background-color: rgb(255, 253, 240);
+		text-decoration: none;
 	}
 
 /*********************************************************************************/
@@ -752,7 +760,7 @@ A:hover {TEXT-DECORATION: underline;}
 		#nav li:hover a
 		{
 			background-color: rgba(255,255,255,0.1);
-			color: #fff;
+			color: #ec6713;
 		}
 
 /*********************************************************************************/
@@ -763,7 +771,6 @@ A:hover {TEXT-DECORATION: underline;}
 	{
 		color: #aaa;
 		color: rgba(255,255,255,0.55);
-		text-shadow: -1px -1px 0px rgba(0,0,0,0.5);
 	}
 
 		#sidebar form input,
@@ -782,12 +789,10 @@ A:hover {TEXT-DECORATION: underline;}
 			#sidebar section:before,
 			#sidebar nav:before
 			{
-				content: '';
 				border-top: solid 1px;
 				border-bottom: solid 1px;
 				border-color: #171E29;
 				border-color: rgba(0,0,0,0.25);
-				box-shadow: inset 0px 1px 0px 0px rgba(255,255,255,0.075), 0px 1px 0px 0px rgba(255,255,255,0.075);
 				display: block;
 			}
 	
@@ -798,7 +803,7 @@ A:hover {TEXT-DECORATION: underline;}
 	
 		#sidebar a
 		{
-			color: #d4dde0;
+			color: rgba(0, 0, 0, 0.71);
 		}
 		
 		#sidebar h2,
@@ -832,15 +837,9 @@ A:hover {TEXT-DECORATION: underline;}
 /*********************************************************************************/
 /* Content                                                                       */
 /*********************************************************************************/
-		
-	#content
-	{
-		position: relative;
-		background-color: #fff;
-		background-image: url('images/bg02.png');
+	#content{
 	}
-	
-		#content > .inner
+	#content > .inner
 		{
 			position: relative;
 			z-index: 1;

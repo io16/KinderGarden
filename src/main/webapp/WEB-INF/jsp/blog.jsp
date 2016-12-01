@@ -74,7 +74,7 @@
     <!-- end header -->
 
     <!-- page content area -->
-    <section id="content" class="col-lg-7 col-md-8 col-sm-12">
+    <section id="content" class="col-lg-6 col-sm-12">
 
         <div class="cloud">
             <h1>Новини</h1>

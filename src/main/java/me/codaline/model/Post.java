@@ -1,5 +1,7 @@
 package me.codaline.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,12 +15,12 @@ public class Post {
     @Id
     @GeneratedValue
     private int id;
+    @Column(name = "title",columnDefinition="TEXT")
     private String title;
+    @Column(name = "context",columnDefinition="TEXT")
     private String context;
     private String date;
     private int idImage;
-
-
 
 
     public int getId() {
