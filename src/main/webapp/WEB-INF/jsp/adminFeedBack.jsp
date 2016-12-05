@@ -26,11 +26,13 @@
     <script src="resources/js/skel-layers.min.js"></script>
     <script src="resources/js/init.js"></script>
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="resources/css/skel.css"/>
     <link rel="stylesheet" href="resources/css/style1.css"/>
     <link rel="stylesheet" href="resources/css/style-desktop.css"/>
     <link rel="stylesheet" href="../../resources/css/style-wide.css"/>
+    <link href="../resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="resources/css/ie/v8.css"/><![endif]-->
@@ -47,30 +49,44 @@
 
     <!-- Content -->
     <div id="content">
-        <div class="inner">
+        <div class="container">
+
             <script language="javascript" type="text/javascript"
                     src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
-            FeedBacks:<br>
-            You have  ${fn:length(feedBacks)} feedBacks <br>
+            <h1>FeedBacks:</h1>
+            You have ${fn:length(feedBacks)} feedBacks
 
             <c:if test="${fn:length(feedBacks) !=0}">
 
                 <button class="button" onclick="DeleteAllFeedBacks()">Delete ALL</button>
-                <br>
+            <table class="table">
             </c:if>
             <c:forEach items="${feedBacks}" var="fb">
-                Name: ${fb.name}<br>
-                Text: ${fb.text}<br>
-                Email: ${fb.email}<br>
-                Date: ${fb.date}<br>
-                <button class="button" onclick="DeleteFeedBack('${fb.id}')">Delete</button>
-                <br>
-            </c:forEach>
+                <thead>
+                    <tr>
+                        <th><b>Name:</b></th>
+                        <th><b>Text:</b></th>
+                        <th><b>Email:</b></th>
+                        <th><b>Date:</b></th>
+                        <th><b>Delete</b></th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    <tr>
+                        <td> ${fb.name}</td>
+                        <td> ${fb.text}</td>
+                        <td> ${fb.email}</td>
+                        <td> ${fb.date}</td>
+                        <td><button class="button" onclick="DeleteFeedBack('${fb.id}')">Delete</button></td>
+                    </tr>
+                </tbody>
+            </c:forEach>
 
             <input  id="token" type="hidden" name="${_csrf.parameterName}"
                     value="${_csrf.token}" />
+            </table>
         </div>
 
     </div>
@@ -123,111 +139,6 @@
                 <input type="text" class="text" name="search" placeholder="Search"/>
             </form>
         </section>
-
-        <!-- Text -->
-        <section class="box text-style1">
-            <div class="inner">
-                <p>
-                    <strong>Striped:</strong> A free and fully responsive HTML5 site
-                    template designed by <a href="http://n33.co/">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
-                </p>
-            </div>
-        </section>
-
-        <!-- Recent Posts -->
-        <section class="box recent-posts">
-            <header>
-                <h2>Recent Posts</h2>
-            </header>
-            <ul>
-                <li><a href="#">Lorem ipsum dolor</a></li>
-                <li><a href="#">Feugiat nisl aliquam</a></li>
-                <li><a href="#">Sed dolore magna</a></li>
-                <li><a href="#">Malesuada commodo</a></li>
-                <li><a href="#">Ipsum metus nullam</a></li>
-            </ul>
-        </section>
-
-        <!-- Recent Comments -->
-        <section class="box recent-comments">
-            <header>
-                <h2>Recent Comments</h2>
-            </header>
-            <ul>
-                <li>case on <a href="#">Lorem ipsum dolor</a></li>
-                <li>molly on <a href="#">Sed dolore magna</a></li>
-                <li>case on <a href="#">Sed dolore magna</a></li>
-            </ul>
-        </section>
-
-        <!-- Calendar -->
-        <section class="box calendar">
-            <div class="inner">
-                <table>
-                    <caption>July 2014</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col" title="Monday">M</th>
-                        <th scope="col" title="Tuesday">T</th>
-                        <th scope="col" title="Wednesday">W</th>
-                        <th scope="col" title="Thursday">T</th>
-                        <th scope="col" title="Friday">F</th>
-                        <th scope="col" title="Saturday">S</th>
-                        <th scope="col" title="Sunday">S</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td colspan="4" class="pad"><span>&nbsp;</span></td>
-                        <td><span>1</span></td>
-                        <td><span>2</span></td>
-                        <td><span>3</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>4</span></td>
-                        <td><span>5</span></td>
-                        <td><a href="#">6</a></td>
-                        <td><span>7</span></td>
-                        <td><span>8</span></td>
-                        <td><span>9</span></td>
-                        <td><a href="#">10</a></td>
-                    </tr>
-                    <tr>
-                        <td><span>11</span></td>
-                        <td><span>12</span></td>
-                        <td><span>13</span></td>
-                        <td class="today"><a href="#">14</a></td>
-                        <td><span>15</span></td>
-                        <td><span>16</span></td>
-                        <td><span>17</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>18</span></td>
-                        <td><span>19</span></td>
-                        <td><span>20</span></td>
-                        <td><span>21</span></td>
-                        <td><span>22</span></td>
-                        <td><a href="#">23</a></td>
-                        <td><span>24</span></td>
-                    </tr>
-                    <tr>
-
-                        <td><a href="#">25</a></td>
-                        <td><span>26</span></td>
-                        <td><span>27</span></td>
-                        <td><span>28</span></td>
-                        <td class="pad" colspan="3"><span>&nbsp;</span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <!-- Copyright -->
-        <ul id="copyright">
-            <li>&copy; Untitled.</li>
-            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-        </ul>
 
     </div>
 

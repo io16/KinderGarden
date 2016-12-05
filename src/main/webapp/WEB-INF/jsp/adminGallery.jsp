@@ -23,7 +23,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="resources/js/skel-layers.min.js"></script>
     <script src="resources/js/init.js"></script>
     <script src="../../resources/js/main.js"></script>
-
+    <link href="resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
     <link rel="stylesheet" href="resources/css/skel.css"/>
     <link rel="stylesheet" href="resources/css/style1.css"/>
     <link rel="stylesheet" href="resources/css/style-desktop.css"/>
@@ -94,11 +94,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
             </script>
-            <style>
-                .img_border {
-                    border: 4px solid blue;
-                }
-            </style>
 
             <div id="div_gallery_context">
 
@@ -109,9 +104,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
             <a class="button green pull-right" id="showButton" onclick="nextGalleryPage(true)"><span>&#xf138;</span>Показати ще </a>
 
-
             <br>
-
 
 
         </div>
@@ -166,17 +159,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <input type="text" class="text" name="search" placeholder="Search"/>
             </form>
         </section>
-
-        <!-- Text -->
-        <section class="box text-style1">
-            <div class="inner">
-                <p>
-                    <strong>Striped:</strong> A free and fully responsive HTML5 site
-                    template designed by <a href="http://n33.co/">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
-                </p>
-            </div>
-        </section>
-
 
     </div>
 

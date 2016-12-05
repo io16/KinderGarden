@@ -21,11 +21,13 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="resources/js/skel-layers.min.js"></script>
     <script src="resources/js/init.js"></script>
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="resources/css/skel.css"/>
     <link rel="stylesheet" href="resources/css/style1.css"/>
     <link rel="stylesheet" href="resources/css/style-desktop.css"/>
     <link rel="stylesheet" href="../../resources/css/style-wide.css"/>
+    <link href="../resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
 
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="resources/css/ie/v8.css"/><![endif]-->
@@ -81,11 +83,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                 }
             </script>
-            <style>
-                .img_border {
-                    border: 4px solid blue;
-                }
-            </style>
+
             <form action="adminAddPost?${_csrf.parameterName}=${_csrf.token}" method="post">
                 <input type="text" name="title" placeholder="Title" required value="${post.title}"><br/>
                 <%--<input type="text" name="context" required>--%>
@@ -97,7 +95,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                 <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>
                 <%--<input type="hidden" th:th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>--%>
-                <input type="submit" value="Add" align="right">
+                <input type="submit" style="margin: 1% 0% 0% 0%;" value="Add" align="right">
 
 
                 <input  id="token" type="hidden" name="${_csrf.parameterName}"
@@ -177,17 +175,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <input type="text" class="text" name="search" placeholder="Search"/>
             </form>
         </section>
-
-        <!-- Text -->
-        <section class="box text-style1">
-            <div class="inner">
-                <p>
-                    <strong>Striped:</strong> A free and fully responsive HTML5 site
-                    template designed by <a href="http://n33.co/">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
-                </p>
-            </div>
-        </section>
-
 
     </div>
 

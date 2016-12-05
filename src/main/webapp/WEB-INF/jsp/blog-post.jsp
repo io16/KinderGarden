@@ -98,7 +98,7 @@
 					<div class="clearfix"><br /></div>
 					<div class="col-12">
 						<a class="button green pull-left"><span>&#xf137;</span>Попередня новина</a>
-						<a  id="showButton" class="button green pull-right"><span>&#xf138;</span>Наступна новина</a>
+						<a  id="showButton" class="button green"><span>&#xf138;</span>Наступна новина</a>
 					</div>
 					<div class="clearfix"></div>
 				</div>

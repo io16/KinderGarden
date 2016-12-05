@@ -82,11 +82,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
 </script>
-<style>
-    .img_border {
-        border: 4px solid blue;
-    }
-</style>
+
 <!-- Wrapper -->
 <div id="wrapper">
     <c:set var="ac" scope="session" value="${access}"/>
@@ -195,17 +191,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <input type="text" class="text" name="search" placeholder="Search"/>
             </form>
         </section>
-
-        <!-- Text -->
-        <section class="box text-style1">
-            <div class="inner">
-                <p>
-                    <strong>Striped:</strong> A free and fully responsive HTML5 site
-                    template designed by <a href="http://n33.co/">AJ</a> for <a href="http://html5up.net/">HTML5 UP</a>
-                </p>
-            </div>
-        </section>
-
 
     </div>
 

@@ -17,10 +17,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="../../resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
-
     <link href="../../resources/css/style.css" type="text/css" rel="stylesheet" media="screen">
     <link href="../../resources/css/font-awesome.css" type="text/css" rel="stylesheet" media="screen">
-
     <script src="../../resources/js/modernizr.js"></script>
     <script src="../../resources/js/respond.js"></script>
     <script src="../../resources/js/jquery.min.js"></script>
@@ -84,70 +82,11 @@
 
         </div>
         <div class="content-bg">
-            <div class="col-lg-6 col-sm-12">
-                <h2 class="entry-title post-title"><a href="blog-post.html">Заголовок №1</a></h2>
-                <div class="post-meta mg-b10">
-                    <a href="blog-post.html"><span class="timestamp updated">01 Листопад 2016</span></a>
-                </div>
-                <img src="../../resources/images/placeholders/green-mid.png" alt="" class="img-border"/>
-                <p>Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....</p>
-                <a class="button blue"><span>&#xf138;</span>ЧИТАТИ</a>
-                <div class="separator"></div>
-            </div>
-
-            <div class="col-lg-6 col-sm-12">
-                <h2 class="entry-title post-title"><a href="blog-post.html">Заголовок №2</a></h2>
-                <div class="post-meta mg-b10">
-                    <a href="blog-post.html"><span class="timestamp updated">01 Листопад 2016</span></a>
-                </div>
-                <img src="../../resources/images/placeholders/yellow-mid.png" alt="" class="img-border"/>
-                <p>Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... </p>
-                <a class="button blue"><span>&#xf138;</span>ЧИТАТИ</a>
-                <div class="separator"></div>
-            </div>
-
-            <div class="clearfix"></div>
-
-            <div class="col-lg-6 col-sm-12">
-                <h2 class="entry-title post-title"><a href="blog-post.html">Заголовок №3</a></h2>
-                <div class="post-meta mg-b10">
-                    <a href="blog-post.html"><span class="timestamp updated">01 Листопад 2016</span></a> -
-                </div>
-                <img src="../../resources/images/placeholders/orange-mid.png" alt="" class="img-border"/>
-                <p>Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... </p>
-                <a class="button blue"><span>&#xf138;</span>ЧИТАТИ</a>
-                <div class="separator"></div>
-            </div>
-
-            <div class="col-lg-6 col-sm-12">
-                <h2 class="entry-title post-title"><a href="blog-post.html">Заголовок №4</a></h2>
-                <div class="post-meta mg-b10">
-                    <a href="blog-post.html"><span class="timestamp updated">01 Листопад 2016</span></a> ->
-                </div>
-                <img src="images/placeholders/blue-mid.png" alt="" class="img-border"/>
-                <p>Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди ....
-                    Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... Свято з нагоди .... </p>
-                <a class="button blue"><span>&#xf138;</span>ЧИТАТИ</a>
-                <div class="separator"></div>
-            </div>
-
             <div class="clearfix"><br/></div>
-            <div class="col-12">
-                <a class="button green pull-right" id="showButton" onclick="nextPostPage()"><span>&#xf138;</span>Показати
+            <div class="col-12 center-block">
+                <a class="button green" id="showButton" onclick="nextPostPage()"><span>&#xf138;</span>Показати
                     ще </a>
-
-                  </div>
+            </div>
             <div class="clearfix"></div>
         </div>
 
