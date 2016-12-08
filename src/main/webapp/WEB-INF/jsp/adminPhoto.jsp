@@ -22,6 +22,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <script src="resources/js/skel-layers.min.js"></script>
     <script src="resources/js/init.js"></script>
     <script src="../../resources/js/main.js"></script>
+    <script src="../../resources/js/jquery.min.js"></script>
 
     <link rel="stylesheet" href="resources/css/skel.css"/>
     <link rel="stylesheet" href="resources/css/style1.css"/>
@@ -90,8 +91,8 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!-- Content -->
     <div id="content">
         <div class="inner">
-            <script language="javascript" type="text/javascript"
-                    src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+            <%--<script language="javascript" type="text/javascript"--%>
+                    <%--src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>--%>
 
 
             <div id="NEWimage_container"></div>
@@ -146,7 +147,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#"> </a></h1>
+        <%--<h1 id="logo"><a href="#"> </a></h1>--%>
 
         <!-- Nav -->
         <nav id="nav">

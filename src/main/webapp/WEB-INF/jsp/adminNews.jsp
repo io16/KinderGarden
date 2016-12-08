@@ -19,17 +19,17 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
     <!--[if lte IE 8]>
     <script src="../../css/ie/html5shiv.js"></script><![endif]-->
     <script src="../../resources/js/jquery.min.js"></script>
-    <script src="resources/js/skel.min.js"></script>
-    <script src="resources/js/skel-layers.min.js"></script>
-    <script src="resources/js/init.js"></script>
+    <script src="../../resources/js/skel.min.js"></script>
+    <script src="../../resources/js/skel-layers.min.js"></script>
+    <script src="../../resources/js/init.js"></script>
     <script src="../../resources/js/main.js"></script>
-    <script src="../../resources/js/bootstrap.min.js"></script>
-
-    <link rel="stylesheet" href="resources/css/skel.css"/>
+    <script src="../../resources/js/jquery.min.js"></script>
+    <link href="../../resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="../../resources/css/skel.css"/>
     <link rel="stylesheet" href="../../resources/css/style1.css"/>
     <link rel="stylesheet" href="../../resources/css/style-desktop.css"/>
     <link rel="stylesheet" href="../../resources/css/style-wide.css"/>
-    <link href="../resources/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen">
+
     <!--[if lte IE 8]>
     <link rel="stylesheet" href="resources/css/ie/v8.css"/><![endif]-->
 </head>
@@ -52,14 +52,14 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             })
 </script>
 <!-- Wrapper -->
-<div id="wrapper">
+<%--<div id="wrapper">--%>
     <c:set var="ac" scope="session" value="${access}"/>
 
     <!-- Content -->
     <div id="content">
         <div class="inner">
-            <script language="javascript" type="text/javascript"
-                    src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+            <%--<script language="javascript" type="text/javascript"--%>
+                    <%--src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>--%>
 
 
             <div id="NEWimage_container"></div>
@@ -76,11 +76,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
 
     <!-- Sidebar -->
-    <div id="sidebar">
+    <div id="sidebar" >
 
         <!-- Logo -->
 
-        <h1 id="logo"><a href="#">Blog<c:if test="${ac == true}">${user.firstName }</c:if> </a></h1>
+        <%--<h1 id="logo"><a href="#"> </a></h1>--%>
 
         <!-- Nav -->
         <nav id="nav">

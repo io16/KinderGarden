@@ -77,27 +77,17 @@
 
 				<div class="content-bg">
 					<div  class="content-bg" id="div_post_context"> </div>
-					<h2 class="entry-title post-title">Заголовок</h2>
-					<p>Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....</p>
-					<img src="../../resources/images/placeholders/green-mid.png" alt="" class="img-border" />
-					<p>Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....  Свято з нагоди ....</p>
-					<div class="gallery">
-						<a href="../../resources/images/placeholders/green-big.png" rel="prettyphoto[gallery2]"><img src="../../resources/images/placeholders/green.png" alt="" /></a>
-						<a href="../../resources/images/placeholders/yellow-big.png" rel="prettyphoto[gallery2]"><img src="../../resources/images/placeholders/yellow.png" alt="" /></a>
-						<a href="../../resources/images/placeholders/orange-big.png" rel="prettyphoto[gallery2]"><img src="../../resources/images/placeholders/orange.png" alt="" /></a>
-						<a href="../../resources/images/placeholders/blue-big.png" rel="prettyphoto[gallery2]"><img src="../../resources/images/placeholders/blue.png" alt="" /></a>
-						<div class="clearfix"></div>
-					</div>
+
 					<div class="clearfix"><br /></div>
 					<div class="post-meta">
-						<a href="blog-post.html"><span class="timestamp updated"><span class="fa">&#xf073;</span> 01 Листопад 2016</span></a>
+
 					</div>
 					<div class="post-data">
 					</div>
 
 					<div class="clearfix"><br /></div>
 					<div class="col-12">
-						<a class="button green pull-left"><span>&#xf137;</span>Попередня новина</a>
+
 						<a  id="showButton" class="button green"><span>&#xf138;</span>Наступна новина</a>
 					</div>
 					<div class="clearfix"></div>

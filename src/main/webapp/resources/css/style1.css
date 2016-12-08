@@ -14,8 +14,21 @@
 
 	body
 	{
-		background-color: #e8e8e8;
-		background-image: url('images/bg02.png');
+		position: relative;
+		background: url(../images/linedpaper.png) repeat #fffdf0;
+		background-image: url(../images/linedpaper.png);
+		background-position-x: initial;
+		background-position-y: initial;
+		background-size: initial;
+		background-repeat-x: repeat;
+		background-repeat-y: repeat;
+		background-attachment: initial;
+		background-origin: initial;
+		background-clip: initial;
+		background-color: rgb(255, 253, 240);
+		text-decoration: none;
+
+
 	}
 
 		body.is-loading * {
@@ -56,7 +69,7 @@ a.button{
 	text-shadow: -1px -1px 0px rgba(0,0,0,0.5);
 }
 
-A, A:visited {COLOR: #03275f; TEXT-DECORATION: none;}
+
 A:hover {TEXT-DECORATION: underline;}
 
 	strong, b
@@ -782,6 +795,7 @@ A:hover {TEXT-DECORATION: underline;}
 	{
 		color: #aaa;
 		color: rgba(255,255,255,0.55);
+
 	}
 
 		#sidebar form input,

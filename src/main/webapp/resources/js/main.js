@@ -27,7 +27,7 @@ function getDeleteButtonsToPosts(page) {
 
         var tempPostData = idPosts[i]
 
-        var idDiv = '#idPost' + tempPostData
+        var idDiv = '#buttonsPost' + tempPostData
 
         $(idDiv).append('<button type="button" class="btn btn-danger" onclick="DeletePost(' + tempPostData + ')">Удалить</button> <br> ');
     }
@@ -102,7 +102,7 @@ function getPosts(page, idPost) {
         }
 
 
-        $('#div_post_context').append('   <div id="idPost' + tempPostData + '" > <div style="max-width: 80%;"> <h2 class="entry-title post-title" ><a style="text-decoration: none;" name="' + tempPostData + '">' + title + '</a></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempPostDataId[2] + '</span></a> </div>     <img   class="img-thumbnail" src="' + imagesSRC[tempPostDataId[3]] + '"/> <p style="color: #3e3e3e; font-size: 16px; ">' + context + '</p> <a type="button" class="btn btn-success"   href="blog-post' + tempPostData + '">Показать</a> <div class="separator"></div> </div> ');
+        $('#div_post_context').append('  <div style="max-width: 80%; "> <h2 class="entry-title post-title" ><a style="text-decoration: none;" name="' + tempPostData + '">' + title + '</a></h2> <div class="post-meta mg-b10"> <span class="timestamp updated">' + tempPostDataId[2] + '</span></div>     <img   class="img-thumbnail" src="' + imagesSRC[tempPostDataId[3]] + '"/> <p style="color: #3e3e3e; font-size: 16px; ">' + context + '</p>  <div id="buttonsPost'+ tempPostData+'"><a type="button" class="btn btn-success"   href="blog-post' + tempPostData + '">Показать</a> </div><div class="separator"></div> </div> ');
 
         if (i%2==1)
 
@@ -136,7 +136,7 @@ function getPost() {
     var tempData = postData[tempPostData];
 
 
-    $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"></h2> <div class="post-meta mg-b10"> <a href="blog-post.html"><span class="timestamp updated">' + tempData[2] + '</span></a> </div>   ' + tempData[1] + ' <a href="' + imagesSRC[tempData[3]] + '" rel="prettyphoto[post' + tempPostData + ']"> <img   class="img-border"  src="' + imagesSRC[tempData[3]] + '"/> </a><p>' + tempData[0] + '</p> <a type="button" class="btn btn-success"  href="blog.html?idPost=' + tempPostData + '" >Повернутись</a> ');
+    $('#div_post_context').append('   <div id="idPost' + tempPostData + '" class="content-bg"> <div class="col-lg-6 col-sm-12"> <h2 class="entry-title post-title"></h2> <div class="post-meta mg-b10"> <span class="timestamp updated">' + tempData[2] + '</span> </div>   ' + tempData[1] + ' <a href="' + imagesSRC[tempData[3]] + '" rel="prettyphoto[post' + tempPostData + ']"> <img   class="img-border"  src="' + imagesSRC[tempData[3]] + '"/> </a><p>' + tempData[0] + '</p> <a type="button" class="btn btn-success"  href="blog.html?idPost=' + tempPostData + '" >Повернутись</a> ');
 
 
 }
