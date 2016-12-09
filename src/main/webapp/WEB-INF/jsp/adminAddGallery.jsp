@@ -107,7 +107,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <textarea id="contextGallery" class="text-style1" rows="10" cols="70"
                       STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
                       required></textarea>
-            <input id="image_from_list" name="idImages" type="text" value=""/><br/>
+            <input id="image_from_list" name="idImages" type="text" value="" style="display: none;"/>
 
             <div id="image_container">
 

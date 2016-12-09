@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
 <!DOCTYPE HTML>
@@ -105,7 +106,6 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
         </div>
         <div>
-            You Have ${fn:length(idImages)} photos
             <div id="image_container">
             <%--<c:forEach var="img" items="${idImages}" varStatus="status">--%>
 
@@ -114,7 +114,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
 
                 <%--<button class="button"  onclick="DeletePhoto('${idImages[status.index]}')">Delete</button>--%>
             <%--</c:forEach>--%>
-                <input id="image_from_list" name="idImages" type="text" value=""/><br/>
+                <input id="image_from_list" name="idImages" type="text" value="" style="display: none;"/>
                 </div>
            <button class="button"  onclick="DeleteSelectedPhotos()">Delete Selected</button>
 
@@ -130,12 +130,11 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
             <br>
             <br>
             <form action="adminUpload?_csrf=${_csrf.token}" method="post" enctype="multipart/form-data">
-                Upload Photos
-                <input name="file" type="file" multiple="multiple">
-                <input type="submit" value="Upload">
 
-                <input  id="token" type="hidden" name="${_csrf.parameterName}"
-                       value="${_csrf.token}" />
+                    <input  name="file" type="file" multiple="multiple">
+                    <input type="submit" value="Upload">
+                    <input  id="token" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
             </form>
 
         </div>

@@ -102,7 +102,7 @@ function getPosts(page, idPost) {
         }
 
 
-        $('#div_post_context').append('  <div style="max-width: 80%; "> <h2 class="entry-title post-title" ><a style="text-decoration: none;" name="' + tempPostData + '">' + title + '</a></h2> <div class="post-meta mg-b10"> <span class="timestamp updated">' + tempPostDataId[2] + '</span></div>     <img   class="img-thumbnail" src="' + imagesSRC[tempPostDataId[3]] + '"/> <p style="color: #3e3e3e; font-size: 16px; ">' + context + '</p>  <div id="buttonsPost'+ tempPostData+'"><a type="button" class="btn btn-success"   href="blog-post' + tempPostData + '">Показать</a> </div><div class="separator"></div> </div> ');
+        $('#div_post_context').append('  <div style="max-width: 90%; margin: auto; "> <h2 class="entry-title post-title" ><a style="text-decoration: none;" name="' + tempPostData + '">' + title + '</a></h2> <div class="post-meta mg-b10"> <span class="timestamp updated">' + tempPostDataId[2] + '</span></div>     <img   class="img-thumbnail" src="' + imagesSRC[tempPostDataId[3]] + '"/> <p style="color: #3e3e3e; font-size: 16px; ">' + context + '</p>  <div id="buttonsPost'+ tempPostData+'"><a type="button" class="btn btn-success"   href="blog-post' + tempPostData + '">Показать</a> </div><div class="separator"></div> </div> ');
 
         if (i%2==1)
 

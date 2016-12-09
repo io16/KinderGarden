@@ -89,7 +89,7 @@ Free for personal and commercial use under the CCA 3.0 license (html5up.net/lice
                 <textarea class="text-style1" rows="10" cols="70"
                           STYLE="max-height: 300px; max-width: 100%; height: 60%" placeholder="Context" name="context"
                           required>${post.context}</textarea>
-                <input id="image_from_list" name="idImage" type="text" value=""/><br/>
+                <input id="image_from_list" name="idImage" type="text" value="" style="display: none;"/><br/>
 
 
                 <%--<input id="ID" name="ID" type="hidden" value="${post.id+0}"/><br/>--%>

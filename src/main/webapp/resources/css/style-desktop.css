@@ -187,7 +187,6 @@
 		padding: 3em 1.35em 1em 1.15em;
 		width: 14em; /* = whatever you want */
 		background: #ffffff url('images/bg01.png');
-		height: auto;
 	}
 
 		body.left-sidebar #sidebar
